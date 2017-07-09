@@ -6,6 +6,16 @@ import { sync } from 'vuex-router-sync'
 import titleMixin from './util/title'
 import * as filters from './util/filters'
 
+// add custom components
+import Components from './components'
+Vue.use(Components)
+
+// add bootstrap css framework
+import BootstrapVue from 'bootstrap-vue'
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+Vue.use(BootstrapVue)
+
 // mixin for handling title
 Vue.mixin(titleMixin)
 

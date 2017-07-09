@@ -1,12 +1,5 @@
 <template>
   <div class="news-view">
-    <div class="news-list-nav">
-      <router-link v-if="page > 1" :to="'/' + type + '/' + (page - 1)">&lt; prev</router-link>
-      <a v-else class="disabled">&lt; prev</a>
-      <span>{{ page }}/{{ maxPage }}</span>
-      <router-link v-if="hasMore" :to="'/' + type + '/' + (page + 1)">more &gt;</router-link>
-      <a v-else class="disabled">more &gt;</a>
-    </div>
     <transition :name="transition">
       <div class="news-list" :key="displayedPage" v-if="displayedPage > 0">
         <transition-group tag="ul" name="item">
@@ -15,18 +8,20 @@
         </transition-group>
       </div>
     </transition>
+    <card></card>
   </div>
 </template>
 
 <script>
 import { watchList } from '../api'
 import Item from '../components/Item.vue'
+import Card from '../components/Card.vue'
 
 export default {
   name: 'item-list',
 
   components: {
-    Item
+    Item, Card
   },
 
   props: {
