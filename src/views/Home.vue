@@ -1,11 +1,12 @@
 <template>
   <div>
-    <card v-for="card in cards"
+    <card v-for="card in cards" :key="card.title"
       v-bind:text="card.text"
       v-bind:img="card.img"
       v-bind:title="card.title"
       v-bind:sub-title="card.subTitle"
       v-bind:overlay=card.overlay
+      v-bind:footer=card.footer
     ></card>
   </div>
 </template>
@@ -13,7 +14,8 @@
 <script>
   export default {
     name: 'home',
-    data: function () {
+
+    data() {
       return {
         cards: [
           {
