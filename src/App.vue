@@ -8,11 +8,8 @@
 </template>
 
 <script>
-import TopNav from './components/TopNav.vue'
-
 export default {
-  name: 'app',
-  components: { TopNav }
+  name: 'app'
 }
 </script>
 
