@@ -4,6 +4,8 @@ const LRU = require('lru-cache')
 const express = require('express')
 const favicon = require('serve-favicon')
 const compression = require('compression')
+const postgraphql = require('postgraphql').postgraphql
+const config = require('./config')
 const resolve = file => path.resolve(__dirname, file)
 const { createBundleRenderer } = require('vue-server-renderer')
 
@@ -126,9 +128,18 @@ function render (req, res) {
   })
 }
 
+// add postgraphql
+app.use(postgraphql(config.PSQL_URI, config.PSQL_SCHEMA, {
+  graphiql: config.GRAPHIQL,
+  pgDefaultRole: config.PSQL_SCHEMA + '_anonymous',
+  jwtSecret: config.PSQL_SECRET, 
+  jwtPgTypeIdentifier: config.PSQL_SCHEMA + '.jwt_token'
+}))
+
 app.get('*', isProd ? render : (req, res) => {
   readyPromise.then(() => render(req, res))
 })
+
 
 const port = process.env.PORT || 8080
 app.listen(port, () => {

@@ -48,6 +48,14 @@ drop role if exists pta_dist_14_person;
 create role pta_dist_14_person;
 grant pta_dist_14_person to pta_dist_14_postgraphql;
 
+drop role if exists pta_dist_14_contributor;
+create role pta_dist_14_contributor;
+grant pta_dist_14_contributor to pta_dist_14_postgraphql;
+
+drop role if exists pta_dist_14_moderator;
+create role pta_dist_14_moderator;
+grant pta_dist_14_moderator to pta_dist_14_postgraphql;
+
 drop role if exists pta_dist_14_admin;
 create role pta_dist_14_admin;
 grant pta_dist_14_admin to pta_dist_14_postgraphql;
