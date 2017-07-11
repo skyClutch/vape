@@ -3,5 +3,6 @@ node_modules/
 dist/
 npm-debug.log
 yarn-error.log
+config.js
 .idea
 *.iml

@@ -1,0 +1,3 @@
+migrate
+migrate add
+migrate run
