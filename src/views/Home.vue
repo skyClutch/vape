@@ -10,7 +10,7 @@
   import gql from 'graphql-tag'
 
   export default {
-    name: 'top-nav',
+    name: 'home',
 
     asyncData: ({ store, route }) => {
       return apollo.query({

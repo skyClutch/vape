@@ -15,6 +15,9 @@
 </template>
 
 <script>
+  export default {
+    name: 'top-nav'
+  }
 </script>
 
 <style lang="stylus" scoped>
