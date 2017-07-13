@@ -3,34 +3,33 @@ import 'es6-promise/auto'
 import { createApp } from './app'
 import ProgressBar from './components/ProgressBar.vue'
 
+let mounted = false
+
 // global progress bar
 const bar = Vue.prototype.$bar = new Vue(ProgressBar).$mount()
 document.body.appendChild(bar.$el)
 
 // a global mixin that calls `asyncData` when a route component's params change
-// Vue.mixin({
-  // beforeRouteUpdate (to, from, next) {
-  //   const { asyncData } = this.$options
-  //   const ComponentData = this.$options.data || (() => ({}))
-  //   if (asyncData) {
-  //     asyncData({
-  //       store: this.$store,
-  //       route: to
-  //     })
-  //     .then(asyncResult => {
-  //       this.$options.data = function () {
-  //         const data =  ComponentData.apply(this, arguments)
-  //         return Object.assign(data, asyncResult)
-  //       }
-  //       return null
-  //     })
-  //     .then(next)
-  //     .catch(next)
-  //   } else {
-  //     next()
-  //   }
-  // }
-// })
+Vue.mixin({
+  beforeMount (to, from, next) {
+    const { asyncData } = this.$options
+    const ComponentData = this.$options.data || (() => ({}))
+
+    if (asyncData) {
+      asyncData({
+        store: this.$store,
+        route: to
+      })
+      .then(asyncResult => {
+        this.$options.data = function () {
+          const data =  ComponentData.apply(this, arguments)
+          return Object.assign(data, asyncResult)
+        }
+        return null
+      })
+    }
+  }
+})
 
 createApp()
 .then(({ app, router, store }) => {
@@ -48,44 +47,19 @@ createApp()
     // the data that we already have. Using router.beforeResolve() so that all
     // async components are resolved.
     router.beforeResolve((to, from, next) => {
-      const matched = router.getMatchedComponents(to)
-      const prevMatched = router.getMatchedComponents(from)
-      let diffed = false
-      // const activated = matched.filter((c, i) => {
-      //   return diffed || (diffed = (prevMatched[i] !== c))
-      // })
-      const asyncDataHookComponents = matched.filter(c => !!c.asyncData)
-      if (!asyncDataHookComponents.length) {
-        return next()
-      }
-
       bar.start()
-      Promise.all(asyncDataHookComponents.map(Component => {
-        const ComponentData = Component.data || (() => ({}))
-        const asyncData = Component.asyncData
-
-        return asyncData({ store, route: to })
-        .then(asyncResult => {
-          Component.data = function () {
-            const data =  ComponentData.call(this)
-            return Object.assign(data, asyncResult)
-          }
-          if (Component._Ctor && Component._Ctor[0] && Component._Ctor[0].options) {
-            Component._Ctor[0].options.data = Component.data
-          }
-          return null
-        })
-      }))
+      resolveComponents(store, router, to, from)
       .then(() => {
         bar.finish()
         next()
       })
       .catch(next)
-      .finally(() => {
-        // actually mount to DOM
-        app.$mount('#app')
-      })
     })
+  })
+
+  resolveComponents(store, router)
+  .then(() => {
+    app.$mount('#app')
   })
 
   // service worker
@@ -93,3 +67,39 @@ createApp()
     navigator.serviceWorker.register('/service-worker.js')
   }
 })
+
+function resolveComponents(store, router, to, from) {
+  const matched = router.getMatchedComponents(to)
+
+  let activated = matched
+  let diffed = false
+
+  if (to && from) {
+    const prevMatched = router.getMatchedComponents(from)
+    const activated = matched.filter((c, i) => {
+      return diffed || (diffed = (prevMatched[i] !== c))
+    })
+  }
+
+  const asyncDataHookComponents = activated.filter(c => !!c.asyncData)
+  if (!asyncDataHookComponents.length) {
+    return Promise.resolve(null)
+  }
+
+  return Promise.all(asyncDataHookComponents.map(Component => {
+    const ComponentData = Component.data || (() => ({}))
+    const asyncData = Component.asyncData
+
+    return asyncData({ store, route: to })
+    .then(asyncResult => {
+      Component.data = function () {
+        const data =  ComponentData.call(this)
+        return Object.assign(data, asyncResult)
+      }
+      if (Component._Ctor && Component._Ctor[0] && Component._Ctor[0].options) {
+        Component._Ctor[0].options.data = Component.data
+      }
+      return null
+    })
+  }))
+}
