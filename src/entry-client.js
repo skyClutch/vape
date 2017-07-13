@@ -8,19 +8,29 @@ const bar = Vue.prototype.$bar = new Vue(ProgressBar).$mount()
 document.body.appendChild(bar.$el)
 
 // a global mixin that calls `asyncData` when a route component's params change
-Vue.mixin({
-  beforeRouteUpdate (to, from, next) {
-    const { asyncData } = this.$options
-    if (asyncData) {
-      asyncData({
-        store: this.$store,
-        route: to
-      }).then(next).catch(next)
-    } else {
-      next()
-    }
-  }
-})
+// Vue.mixin({
+  // beforeRouteUpdate (to, from, next) {
+  //   const { asyncData } = this.$options
+  //   const ComponentData = this.$options.data || (() => ({}))
+  //   if (asyncData) {
+  //     asyncData({
+  //       store: this.$store,
+  //       route: to
+  //     })
+  //     .then(asyncResult => {
+  //       this.$options.data = function () {
+  //         const data =  ComponentData.apply(this, arguments)
+  //         return Object.assign(data, asyncResult)
+  //       }
+  //       return null
+  //     })
+  //     .then(next)
+  //     .catch(next)
+  //   } else {
+  //     next()
+  //   }
+  // }
+// })
 
 createApp()
 .then(({ app, router, store }) => {
@@ -41,25 +51,41 @@ createApp()
       const matched = router.getMatchedComponents(to)
       const prevMatched = router.getMatchedComponents(from)
       let diffed = false
-      const activated = matched.filter((c, i) => {
-        return diffed || (diffed = (prevMatched[i] !== c))
-      })
-      const asyncDataHooks = activated.map(c => c.asyncData).filter(_ => _)
-      if (!asyncDataHooks.length) {
+      // const activated = matched.filter((c, i) => {
+      //   return diffed || (diffed = (prevMatched[i] !== c))
+      // })
+      const asyncDataHookComponents = matched.filter(c => !!c.asyncData)
+      if (!asyncDataHookComponents.length) {
         return next()
       }
 
       bar.start()
-      Promise.all(asyncDataHooks.map(hook => hook({ store, route: to })))
-        .then(() => {
-          bar.finish()
-          next()
-        })
-        .catch(next)
-    })
+      Promise.all(asyncDataHookComponents.map(Component => {
+        const ComponentData = Component.data || (() => ({}))
+        const asyncData = Component.asyncData
 
-    // actually mount to DOM
-    app.$mount('#app')
+        return asyncData({ store, route: to })
+        .then(asyncResult => {
+          Component.data = function () {
+            const data =  ComponentData.call(this)
+            return Object.assign(data, asyncResult)
+          }
+          if (Component._Ctor && Component._Ctor[0] && Component._Ctor[0].options) {
+            Component._Ctor[0].options.data = Component.data
+          }
+          return null
+        })
+      }))
+      .then(() => {
+        bar.finish()
+        next()
+      })
+      .catch(next)
+      .finally(() => {
+        // actually mount to DOM
+        app.$mount('#app')
+      })
+    })
   })
 
   // service worker

@@ -1,7 +1,7 @@
 <template>
   <div>
     home
-    {{$store.state.pages}}
+    {{pages}}
   </div>
 </template>
 
@@ -30,11 +30,8 @@
         }`
       })
       .then(result => {
-        store.commit('SET_PAGES', { 
-          pages: result.data.allPages.edges.map(edge => {
-            return edge.node
-          })
-        })
+        const mapped  = { pages: result.data.allPages.edges.map(edge => edge.node) }
+        return mapped
       })
     }
   }
