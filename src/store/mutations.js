@@ -25,6 +25,10 @@ export default {
     })
   },
 
+  SET_PAGE: (state, { page }) => {
+    state.page = page
+  },
+
   SET_USER: (state, { id, user }) => {
     Vue.set(state.users, id, user || false) /* false means user not found */
   }

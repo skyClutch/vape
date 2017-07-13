@@ -5,7 +5,7 @@
       v-bind:header="header"
       v-bind:img="img"
       v-bind:footer="footer"
-      v-bind:overlay="overlay"
+      v-bind:overlay=true
       v-bind:title="title"
       v-bind:sub-title="subTitle"
     >
@@ -30,6 +30,29 @@
 </script>
 
 <style lang="stylus" scoped>
+  $lineHeight = 15
+  $lineCount = 20
+
   div
-    text-overflow ellipsis
+    overflow hidden
+    position relative
+    line-height $lineHeight
+    max-height $lineHeight * $lineCount 
+    text-align justify
+    margin-right -1em
+    padding-right 1em
+
+  div:before 
+    content '...'
+    position absolute
+    right 0
+    bottom 0
+
+  div:after
+    content ''
+    position absolute
+    right 0
+    width 1em
+    height 1em
+    margin-top 0.2em
 </style>

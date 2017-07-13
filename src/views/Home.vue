@@ -1,38 +1,16 @@
 <template>
-  <div>
-    home
-    {{pages}}
-  </div>
+<div>home<hr />
+<card v-for="page in $store.state.page.children" :key="page.id"
+  v-bind:text="page.data.body"
+  v-bind:img="page.data.img"
+  v-bind:title="page.data.title"
+  v-bind:sub-title="page.data.subTitle"
+></card>
+</div>
 </template>
 
 <script>
-  import apollo from '../lib/apollo-client'
-  import gql from 'graphql-tag'
-
   export default {
     name: 'home',
-
-    asyncData: ({ store, route }) => {
-      return apollo.query({
-        query: gql`{
-          allPages {
-            edges {
-              node {
-                id
-                parentId
-                route
-                title
-                template
-                data
-              }
-            }
-          }
-        }`
-      })
-      .then(result => {
-        const mapped  = { pages: result.data.allPages.edges.map(edge => edge.node) }
-        return mapped
-      })
-    }
   }
 </script>

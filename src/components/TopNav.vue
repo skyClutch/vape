@@ -1,15 +1,9 @@
 <template>
   <header class="header">
     <nav class="inner">
-      <router-link to="/home">home</router-link>
-      <router-link to="/welcome">welcome</router-link>
-      <router-link to="/calendar">calendar</router-link>
-      <router-link to="/programs">programs</router-link>
-      <router-link to="/forms">forms</router-link>
-      <router-link to="/resources">resources</router-link>
-      <a class="github" href="https://github.com/vuejs/vue-hackernews-2.0" target="_blank" rel="noopener">
-        Built with Vue.js
-      </a>
+      <span v-for="page in $store.state.pages" :key="page.id">
+        <router-link :to="{ path: page.route, params: {} }">{{page.title}}</router-link>
+      </span>
     </nav>
   </header>
 </template>
@@ -22,6 +16,9 @@
 
 <style lang="stylus" scoped>
 @import '../style/vars.styl'
+
+li
+  list-style none
 
 .header
   background-color $theme-color
