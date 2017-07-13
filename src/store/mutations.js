@@ -17,6 +17,14 @@ export default {
     })
   },
 
+  SET_PAGES: (state, { pages }) => {
+    pages.forEach(page => {
+      if (page) {
+        Vue.set(state.pages, page.id, page)
+      }
+    })
+  },
+
   SET_USER: (state, { id, user }) => {
     Vue.set(state.users, id, user || false) /* false means user not found */
   }

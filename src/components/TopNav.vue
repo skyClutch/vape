@@ -1,11 +1,8 @@
 <template>
   <header class="header">
     <nav class="inner">
-      <router-link to="/" exact>
-        <img class="logo" src="~public/logo-48.png" alt="logo">
-      </router-link>
       <router-link to="/home">home</router-link>
-      <router-link to="/about">about</router-link>
+      <router-link to="/welcome">welcome</router-link>
       <router-link to="/calendar">calendar</router-link>
       <router-link to="/programs">programs</router-link>
       <router-link to="/forms">forms</router-link>
@@ -18,9 +15,6 @@
 </template>
 
 <script>
-export default {
-  name: 'top-nav'
-}
 </script>
 
 <style lang="stylus" scoped>

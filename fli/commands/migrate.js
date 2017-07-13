@@ -20,7 +20,7 @@ module.exports = {
     description: 'runs migrations',
 
     exec: function (target, isSync) {
-      return fwf.shell('DATABASE_URL=postgres://vape:W00ki3c00ki3Z@vape.clluwcqtrt2r.us-west-2.rds.amazonaws.com:5432/vape', ['node_modules/.bin/migrate'])
+      return fwf.shell(`DATABASE_URL=${config.PSQL_URI} ./node_modules/pgmigrate/cli.js`)
     }
   }
 }

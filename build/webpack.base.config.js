@@ -17,6 +17,7 @@ module.exports = {
   },
   resolve: {
     alias: {
+      vue: 'vue/dist/vue.js', // compile templates on the fly
       'public': path.resolve(__dirname, '../public')
     }
   },

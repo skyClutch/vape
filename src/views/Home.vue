@@ -1,31 +1,41 @@
 <template>
   <div>
-    <card v-for="card in cards" :key="card.title"
-      v-bind:text="card.text"
-      v-bind:img="card.img"
-      v-bind:title="card.title"
-      v-bind:sub-title="card.subTitle"
-      v-bind:overlay=card.overlay
-      v-bind:footer=card.footer
-    ></card>
+    home
+    {{$store.state.pages}}
   </div>
 </template>
 
 <script>
-  export default {
-    name: 'home',
+  import apollo from '../lib/apollo-client'
+  import gql from 'graphql-tag'
 
-    data() {
-      return {
-        cards: [
-          {
-            title: 'Welcome!',
-            img: 'http://thecatapi.com/api/images/get?format=src&type=gif',
-            overlay: true,
-            text: 'The 14th District PTA serves Sonoma, Mendocino, and Lake counties. We are comprised of 45 school PTas and have over 5,000 members. Our members are parents, administrators, teachers, students, and community members...'
+  export default {
+    name: 'top-nav',
+
+    asyncData: ({ store, route }) => {
+      return apollo.query({
+        query: gql`{
+          allPages {
+            edges {
+              node {
+                id
+                parentId
+                route
+                title
+                template
+                data
+              }
+            }
           }
-        ]
-      }
+        }`
+      })
+      .then(result => {
+        store.commit('SET_PAGES', { 
+          pages: result.data.allPages.edges.map(edge => {
+            return edge.node
+          })
+        })
+      })
     }
   }
 </script>
