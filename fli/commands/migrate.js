@@ -20,7 +20,19 @@ module.exports = {
     description: 'runs migrations',
 
     exec: function (target, isSync) {
-      return fwf.shell(`DATABASE_URL=${config.PSQL_URI} ./node_modules/pgmigrate/cli.js`)
+      var args = []
+
+      if (isSync)
+        args = ['--sync']
+
+      return fwf.shell('psql', ['vape', '-c', 'drop schema public cascade; create schema public'])
+      .then(function () {
+        return fwf.shell('./node_modules/.bin/migrate', args, {
+          env: Object.assign({}, process.env, {
+            DATABASE_URL: config.PSQL_ADMIN_URI
+          })
+        })
+      })
     }
   }
 }

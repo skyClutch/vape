@@ -1,4 +1,6 @@
 -- create schemas
+drop schema if exists pta_dist_14 cascade;
+drop schema if exists pta_dist_14_private cascade;
 create schema pta_dist_14;
 create schema pta_dist_14_private;
 
