@@ -2,7 +2,7 @@
   <header class="header">
     <nav class="inner">
       <span v-for="page in $store.state.pages" :key="page.id">
-        <router-link :to="{ path: page.route, params: {} }">{{page.title}}</router-link>
+        <router-link :to="{ path: page.path, params: {} }">{{page.title}}</router-link>
       </span>
     </nav>
   </header>

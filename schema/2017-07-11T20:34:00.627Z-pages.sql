@@ -32,11 +32,6 @@ create trigger page_updated_at before update
 
 -- permissions
 grant select on table pta_dist_14.page to pta_dist_14_anonymous, pta_dist_14_person;
-grant update on table pta_dist_14.page to pta_dist_14_anonymous, pta_dist_14_person;
-grant insert on table pta_dist_14.page to pta_dist_14_anonymous, pta_dist_14_person;
-grant delete on table pta_dist_14.page to pta_dist_14_anonymous, pta_dist_14_person;
-
--- add some pages
-insert into pta_dist_14.page (author_id, route, title, template, data, parent_id) values
-  (1, 'home', 'Home', '<div> home  {{$store.state.pages}}</div>', '{}', null),
-  (1, 'welcome', 'Welcome!', '<div> <h1>{{title}}</h1> <hr /> <p>{{body}}</p> </div>', '{ "title": "Welcome!", "img": "http://thecatapi.com/api/images/get?format=src&type=gif", "body": "The 14th District PTA serves Sonoma, Mendocino, and Lake counties. We are comprised of 45 school PTas and have over 5,000 members. Our members are parents, administrators, teachers, students, and community members..." }', 1)
+grant update on table pta_dist_14.page to pta_dist_14_person;
+grant insert on table pta_dist_14.page to pta_dist_14_person;
+grant delete on table pta_dist_14.page to pta_dist_14_person;

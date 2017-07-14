@@ -1,3 +1,5 @@
 migrate
 migrate add
 migrate run
+template
+template export

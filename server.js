@@ -131,7 +131,7 @@ function render (req, res) {
 // add postgraphql
 app.use(postgraphql(config.PSQL_URI, config.PSQL_SCHEMA, {
   graphiql: config.GRAPHIQL,
-  pgDefaultRole: config.PSQL_SCHEMA + '_anonymous',
+  pgDefaultRole: config.PSQL_DEFAULT_ROLE,
   jwtSecret: config.PSQL_SECRET, 
   jwtPgTypeIdentifier: config.PSQL_SCHEMA + '.jwt_token'
 }))

@@ -10,7 +10,7 @@ module.exports = {
     description: '<name> - create migration file with timestamp',
 
     exec: function (target, name) {
-      var filepath = `schema/${new Date().toISOString()}-${name}.sql`
+      let filepath = `schema/${new Date().toISOString()}-${name}.sql`
       fs.writeFileSync(filepath, '')
       return filepath
     }
@@ -20,19 +20,30 @@ module.exports = {
     description: 'runs migrations',
 
     exec: function (target, isSync) {
-      var args = []
+      let promise = Promise.resolve()
 
-      if (isSync)
-        args = ['--sync']
+      if (target.drop !== undefined) {
+        promise = fwf.shell( 'psql', [
+          config.PSQL_ADMIN_URI, 
+          '-c', 
+          `drop table public.schema_info cascade; drop schema ${config.PSQL_SCHEMA} cascade; drop schema ${config.PSQL_SCHEMA}_private cascade;`
+        ])
+      }
 
-      return fwf.shell('psql', ['vape', '-c', 'drop schema public cascade; create schema public'])
+      return promise
       .then(function () {
-        return fwf.shell('./node_modules/.bin/migrate', args, {
+        return fwf.shell('./node_modules/.bin/migrate', [], {
           env: Object.assign({}, process.env, {
             DATABASE_URL: config.PSQL_ADMIN_URI
           })
         })
       })
+    },
+
+    options: {
+      drop: {
+        description: 'drops everything and starts over'
+      }
     }
   }
 }
