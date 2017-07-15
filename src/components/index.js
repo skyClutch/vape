@@ -1,7 +1,9 @@
-import TopNav from './TopNav.vue'
 import Card from './Card.vue'
+import JumboTron from './JumboTron.vue'
+import TopNav from './TopNav.vue'
 
 const components = {
+  JumboTron,
   TopNav,
   Card
 }

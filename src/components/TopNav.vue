@@ -1,7 +1,7 @@
 <template>
   <header class="header">
     <nav class="inner">
-      <span v-for="page in $store.state.pages" :key="page.id">
+      <span v-for="page in topPages()" :key="page.id">
         <router-link :to="{ path: page.path, params: {} }">{{page.title}}</router-link>
       </span>
     </nav>
@@ -10,7 +10,12 @@
 
 <script>
   export default {
-    name: 'top-nav'
+    name: 'top-nav',
+    methods: {
+      topPages() {
+        return this.$store.state.pages.filter(p => !p.parentId)
+      }
+    }
   }
 </script>
 

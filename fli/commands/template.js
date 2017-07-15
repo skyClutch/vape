@@ -9,14 +9,16 @@ module.exports = {
     exec(target) {
       return new Promise((res, rej) => {
         let p = Promise.resolve()
-        let all = []
 
         fs.readdir('src/pages/', (err, files) => {
           files.forEach(file => {
-            p = parseFile(`src/pages/${file}`, values)
-            all.push(p)
+            if (/^\./.test(file))
+              return
+            p = p.then(() => {
+              return parseFile(`src/pages/${file}`, values)
+            })
           })
-          res(Promise.all(all).then(() => values.join(',\n  ')))
+          p.then(() => res(values.join(',\n  ')))
         })
       })
       .then(valueString => `insert into pta_dist_14.page (author_id, route, title, template, data, parent_id) values\n  ${valueString}`)
@@ -25,7 +27,7 @@ module.exports = {
           fs.writeFile('schema/2017-07-14T06:48:57.618Z-page-seed-data.sql', insert, (err) => {
             if (err)
               return rej(err)
-            res('successful write to schema/2017-07-14T06:48:57.618Z-page-seed-data.sql')
+            res(insert)
           })
         })
       })
