@@ -7,7 +7,7 @@ const VueSSRClientPlugin = require('vue-server-renderer/client-plugin')
 
 const config = merge(base, {
   entry: {
-    app: './src/entry-client.js'
+    app: './src/client/entry.js'
   },
   resolve: {
     alias: {

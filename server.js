@@ -5,7 +5,7 @@ const express = require('express')
 const favicon = require('serve-favicon')
 const compression = require('compression')
 const postgraphql = require('postgraphql').postgraphql
-const config = require('./config')
+const config = require('./src/server/config')
 const resolve = file => path.resolve(__dirname, file)
 const { createBundleRenderer } = require('vue-server-renderer')
 
