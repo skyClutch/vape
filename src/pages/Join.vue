@@ -2,7 +2,8 @@
   <div> 
     <jumbo-tron :title="title" :img="img"></jumbo-tron>
     <hr /> 
-    <p>{{body}}</p> </div>
+    <div v-html="body"></div> 
+  </div>
 </template>
 
 <script>
@@ -12,11 +13,7 @@
       parentId: 2,
       "title": "Join Our Team", 
       "img": "http://thecatapi.com/api/images/get?format=src&type=gif&size=med", 
-      "body": `We need new board members for these positions:
-          Santa Rosa & North Area Coordinator
-        Diversity & Inclusion VP
-      Student Board Member
-      Communications VP`
+      "body": `We need new board members for these positions: <ul> <li>Santa Rosa &amp; North Area Coordinator</li> <li>Diversity &amp; Inclusion VP</li> <li>Student Board Member</li> <li>Communications VP</li> </ul>`
     })
   }
 </script>

@@ -54,7 +54,6 @@ a
   vertical-align middle
 
 .view
-  max-width 800px
   margin 0 auto
   position relative
 
