@@ -1,0 +1,13 @@
+@import '../../node_modules/bootstrap/scss/_variables.scss';
+// custom bootstrap goes here
+@import '../../node_modules/bootstrap/scss/bootstrap.scss';
+.row {
+  .col-md-4:first-child {
+    padding-left: 0px;
+    padding-right: 30px;
+  }
+  .col-md-4:last-child {
+    padding-right: 0px;
+    padding-left: 30px;
+  }
+}

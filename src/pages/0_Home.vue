@@ -12,9 +12,9 @@
 
 <script>
   export default {
-    name: 'programs',
+    name: 'home',
     data: () => ({
-      title: 'Programs',
+      title: 'Home',
       body: 'here have some text'
     })
   }

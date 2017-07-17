@@ -12,7 +12,7 @@ Vue.use(Components)
 
 // add bootstrap css framework
 import BootstrapVue from 'bootstrap-vue'
-import './scss/custom-bootstrap.scss'
+import './style/custom.scss'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 Vue.use(BootstrapVue)
 

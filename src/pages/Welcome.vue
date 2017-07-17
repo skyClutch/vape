@@ -1,8 +1,9 @@
 <template>
-  <div> 
+  <div class="row"> 
     <jumbo-tron :title="title" :img="img"></jumbo-tron>
     <hr /> 
-    <p>{{body}}</p> </div>
+    <p>{{body}}</p>
+  </div>
 </template>
 
 <script>

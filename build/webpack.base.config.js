@@ -33,6 +33,10 @@ module.exports = {
         loaders: [ 'vue-style-loader', 'css-loader', 'sass-loader' ]
       },
       {
+        test: /\.styl/,
+        loaders: [ 'vue-style-loader', 'css-loader', 'stylus-loader' ]
+      },
+      {
         test: /\.js$/,
         loader: 'babel-loader',
         exclude: /node_modules/

@@ -10,7 +10,7 @@
   export default {
     name: 'reflections',
     data: () => ({
-      parentId: 2,
+      parentId: 6,
       "title": "Reflections", 
       "img": "http://thecatapi.com/api/images/get?format=src&type=gif&size=med", 
       "body":`<p>PTA Reflections is a nationally acclaimed student recognition program to encourage artistic creativity in the classroom and at home. Students of all grades and abilities may participate and explore the arts based on the 2017-2018 theme: Within Reach.</p>

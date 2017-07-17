@@ -1,6 +1,6 @@
 <template>
   <header class="header">
-		<b-navbar toggleable type="inverse">
+		<b-navbar toggleable type="inverse" class="container">
 
 				<b-nav-toggle target="nav_collapse"></b-nav-toggle>
 
@@ -33,7 +33,7 @@
 </script>
 
 <style lang="stylus" scoped>
-@import '../style/vars.styl'
+@import '../style/custom.styl'
 
 li
   list-style none

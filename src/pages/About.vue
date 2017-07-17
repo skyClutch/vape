@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="row">
     <card v-for="page in $store.state.page.data.children" :key="page.id"
       v-bind:path="page.data.route"
       v-bind:text="page.data.body"
@@ -12,9 +12,9 @@
 
 <script>
   export default {
-    name: 'home',
+    name: 'about',
     data: () => ({
-      title: 'Home',
+      title: 'About',
       body: 'here have some text'
     })
   }
