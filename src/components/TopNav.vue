@@ -1,10 +1,23 @@
 <template>
   <header class="header">
-    <nav class="inner">
-      <span v-for="page in topPages()" :key="page.id">
-        <router-link :to="{ path: page.path, params: {} }">{{page.title}}</router-link>
-      </span>
-    </nav>
+		<b-navbar toggleable type="inverse">
+
+				<b-nav-toggle target="nav_collapse"></b-nav-toggle>
+
+				<b-link class="navbar-brand" to="/">
+					<span>District 14 PTA</span>
+				</b-link>
+
+				<b-collapse is-nav id="nav_collapse">
+
+					<b-nav is-nav-bar>
+              <router-link  v-for="page in topPages()" :key="page.id" :to="{ path: page.path, params: {} }">
+                {{page.title}}
+              </router-link>
+					</b-nav>
+
+				</b-collapse>
+		</b-navbar>
   </header>
 </template>
 

@@ -3,7 +3,6 @@ const webpack = require('webpack')
 const vueConfig = require('./vue-loader.config')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
-
 const isProd = process.env.NODE_ENV === 'production'
 
 module.exports = {
@@ -28,6 +27,10 @@ module.exports = {
         test: /\.vue$/,
         loader: 'vue-loader',
         options: vueConfig
+      },
+      {
+        test: /\.scss$/,
+        loaders: [ 'vue-style-loader', 'css-loader', 'sass-loader' ]
       },
       {
         test: /\.js$/,

@@ -1,5 +1,5 @@
 <template>
-  <div class="col-4">
+  <div class="col-md-4">
     <router-link :to="path">
       <b-card 
         class="mb-2"
@@ -26,7 +26,7 @@
     props: ['path', 'header', 'title', 'subTitle', 'footer', 'text', 'img', 'overlay'],
 
     methods: {
-      snippet: body => `${body.slice(0, 100)}...`
+      snippet: body => `${body.slice(0, 100)}...`.replace(/<[^>\/]\/*>/g, '')
     }
   }
 </script>
