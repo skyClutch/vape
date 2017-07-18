@@ -63,7 +63,7 @@ body
   font-family -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   font-size 18px
   margin 0
-  padding-top 80px
+  padding-top 88px
   overflow-y scroll
   background: #dedede url("/public/background.jpg") no-repeat fixed center; 
   background-size cover

@@ -11,18 +11,15 @@
 				<b-collapse is-nav id="nav_collapse">
 
 					<b-nav is-nav-bar>
-            <b-nav-item><router-link  v-for="page in topPages()" :key="page.id" :to="{ path: page.path, params: {} }">
+            <router-link  v-for="page in topPages()" :key="page.id" :to="{ path: page.path, params: {} }">
                 {{page.title}}
               </router-link>
-            </b-nav-item>
 					</b-nav>
-          <b-nav is-nav-bar class="ml-auto">
 
-          <b-link href="https://twitter.com" target="_blank" right>
-              <div class="social-icon-twitter"></div>
-          </b-link>
-          </b-nav>
 				</b-collapse>
+        <b-link href="https://twitter.com" target="_blank" right>
+          <img src="/public/social-twitter.png" class="social-icon"/>
+        </b-link>
 		</b-navbar>
   </header>
 </template>
@@ -59,7 +56,7 @@ li
     padding 15px 5px
   a
     color rgba(255, 255, 255, .8)
-    line-height 32px
+    line-height 30px
     transition color .15s ease
     display inline-block
     vertical-align middle
