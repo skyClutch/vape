@@ -1,6 +1,6 @@
 <template>
   <header class="header">
-		<b-navbar toggleable type="inverse" class="container">
+		<b-navbar toggleable type="inverse" variant="info">
 
 				<b-nav-toggle target="nav_collapse"></b-nav-toggle>
 
@@ -11,11 +11,17 @@
 				<b-collapse is-nav id="nav_collapse">
 
 					<b-nav is-nav-bar>
-              <router-link  v-for="page in topPages()" :key="page.id" :to="{ path: page.path, params: {} }">
+            <b-nav-item><router-link  v-for="page in topPages()" :key="page.id" :to="{ path: page.path, params: {} }">
                 {{page.title}}
               </router-link>
+            </b-nav-item>
 					</b-nav>
+          <b-nav is-nav-bar class="ml-auto">
 
+          <b-link href="https://twitter.com" target="_blank" right>
+              <div class="social-icon-twitter"></div>
+          </b-link>
+          </b-nav>
 				</b-collapse>
 		</b-navbar>
   </header>
@@ -41,7 +47,7 @@ li
 .header
   background-color $theme-color
   position fixed
-  z-index 999
+  z-index 9999
   height 55px
   top 0
   left 0
@@ -53,7 +59,7 @@ li
     padding 15px 5px
   a
     color rgba(255, 255, 255, .8)
-    line-height 24px
+    line-height 32px
     transition color .15s ease
     display inline-block
     vertical-align middle

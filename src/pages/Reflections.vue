@@ -1,8 +1,7 @@
 <template>
   <div> 
     <jumbo-tron :title="title" :img="img"></jumbo-tron>
-    <hr /> 
-    <div v-html="body"></div>
+    <div class="backdrop" v-html="body"></div>
   </div>
 </template>
 

@@ -5,7 +5,6 @@
       <router-view class="view"></router-view>
     </transition>
     <div class="footer">
-      <hr/>
       powered by<img src="/public/skyClutch.gif" style="width:50px; margin: -7px;"/><a href="http://skyClutch.com" target="_blank">skyClutch, LLC</a>
     </div>
   </div>
@@ -18,33 +17,69 @@ export default {
 </script>
 
 <style lang="stylus">
+@import './style/custom.styl'
+html, body, .container
+  height 100%
+
 .footer
-  color lightgrey
+  font-size 12px
+  color grey
   text-align center
+  bottom 0px
+  width 100%
+  padding 5px
+  opacity .9
+  position fixed
+  bottom 0
+  left 0
+  background white
+  with 100%
+
   a
-    color lightgrey
+    color grey
   a:link
     text-decoration none
   a:hover
     color lightblue !important
     text-decoration none
   a:visited
-    color lightgrey
+    color grey
     text-decoration none
   a:active
     text-decoration none !important
 
-body
-  font-family -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-  font-size 15px
-  margin 0
-  padding-top 75px
-  color #34495e
-  overflow-y scroll
+hr
+  background-color lightgrey
 
-a
-  color #34495e
-  text-decoration none
+.backdrop
+  top 0px
+  width 100%
+  background white
+  opacity 0.7
+  padding 25px
+
+body
+  color black
+  font-family -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-size 18px
+  margin 0
+  padding-top 80px
+  overflow-y scroll
+  background: #dedede url("/public/background.jpg") no-repeat fixed center; 
+  background-size cover
+
+  a
+    color black
+  a:link
+    color black
+    text-decoration none
+  a:hover
+    color $light-blue
+    text-decoration none
+  a:visited
+    text-decoration none
+  a:active
+    text-decoration none !important
 
 .logo
   width 24px

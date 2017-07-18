@@ -4,16 +4,12 @@
       <b-card 
         class="mb-2"
         :header="header"
-        :img="img"
         :footer="footer"
-        :overlay=true
         :title="title"
         :sub-title="subTitle"
+        :style="{ background: (idx % 2 === 0 ? '#fff' : '#eee'), color: 'black' }"
       >
         {{ snippet(text) }}
-        <small v-if="footer" slot="footer" class="text-muted">
-          {{ footer }}
-        </small>
       </b-card>
     </router-link>
   </div>
@@ -23,10 +19,10 @@
   export default {
     name: 'card',
 
-    props: ['path', 'header', 'title', 'subTitle', 'footer', 'text', 'img', 'overlay'],
+    props: ['idx', 'path', 'header', 'title', 'subTitle', 'footer', 'text', 'img'],
 
     methods: {
-      snippet: body => `${body.slice(0, 100)}...`.replace(/<[^>\/]\/*>/g, '')
+      snippet: body => body.replace(/<[^>]+>/g, '').slice(0, 200) + '...'
     }
   }
 </script>

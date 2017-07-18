@@ -1,7 +1,10 @@
 <template>
-  <div>
-    <b-jumbotron :header="title" :style="{ color: 'white', background: '#000 url(' + img + ') center center' }">
-    </b-jumbotron>
+  <div class="page-title-wrapper">
+    <div class="page-title">
+      <div class="container">
+        <h1>{{title}}</h1>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -13,11 +16,18 @@
 </script>
 
 <style lang="stylus" scoped>
-  b-jumbotron
-    position relative
-    background 
+  .page-title-wrapper
+    height 100px
     width 100%
-    height 100% 
-    background-size cover
-    overflow hidden
+
+  .page-title
+    color white
+    position fixed
+    padding 30px
+    top 55px
+    left 0px
+    width 100%
+    height 100px
+    background rgba(157,171,205,0.9)
+    z-index 999
 </style>

@@ -1,13 +1,24 @@
 @import '../../node_modules/bootstrap/scss/_variables.scss';
 // custom bootstrap goes here
+$brand-info: #41577d;
 @import '../../node_modules/bootstrap/scss/bootstrap.scss';
 .row {
-  .col-md-4:last-child {
-    padding-right: 0px;
-    padding-left: 30px;
+  .col-md-4 {
+    padding: 0px;
   }
-  .col-md-4:first-child {
-    padding-left: 0px;
-    padding-right: 30px;
-  }
+}
+
+.card {
+  border: none;
+  border-radius: 0;
+  opacity: 0.6;
+  color: white;
+  height: 100%;
+}
+
+.social-icon-twitter {
+  background: url('/public/social-twitter.png');
+  width: 35px;
+  height: 35px;
+  background-size: contain;
 }

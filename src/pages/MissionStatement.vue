@@ -1,8 +1,8 @@
 <template>
   <div> 
     <jumbo-tron :title="title" :img="img"></jumbo-tron>
-    <hr /> 
-    <p>{{body}}</p> </div>
+    <div class="backdrop" v-html="body"></div>
+  </div>
 </template>
 
 
