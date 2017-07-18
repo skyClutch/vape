@@ -34,7 +34,6 @@ export default {
   a:active
     text-decoration none !important
 
-$enable-rounded = true !default;
 body
   font-family -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   font-size 15px
