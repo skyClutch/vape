@@ -18,8 +18,11 @@ export default {
 
 <style lang="stylus">
 @import './style/custom.styl'
-html, body, .container
+html, body
   height 100%
+
+.container
+  padding-bottom 55px
 
 .footer
   font-size 12px
