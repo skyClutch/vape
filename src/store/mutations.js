@@ -17,6 +17,11 @@ export default {
     })
   },
 
+  SET_PAGE: (state, { page }) => {
+    if (page)
+      Vue.set(state.pages, page.id, page)
+  },
+
   SET_PAGES: (state, { pages }) => {
     pages.forEach(page => {
       if (page) {
@@ -25,7 +30,7 @@ export default {
     })
   },
 
-  SET_PAGE: (state, { page }) => {
+  SET_CURRENT_PAGE: (state, { page }) => {
     state.page = page
   },
 

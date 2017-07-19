@@ -28,9 +28,10 @@ Object.keys(filters).forEach(key => {
 // app instances on each call (which is called for each SSR request)
 export function createApp () {
   // create store and router instances
-  return createRouter()
+  const store = createStore()
+
+  return createRouter(store)
   .then(router => {
-    const store = createStore(router.options.routes.map(route => route.page || route))
 
     // sync the router with the vuex store.
     // this registers `store.state.route`
@@ -46,8 +47,8 @@ export function createApp () {
     })
 
     router.beforeEach((to, from, next) => {
-      let page = store.state.pages.find(page => (new RegExp(to.path).test(page.path)))
-      store.commit('SET_PAGE', { page })
+      let page = Object.values(store.state.pages).find(page => (new RegExp(to.path).test(page.path)))
+      store.commit('SET_CURRENT_PAGE', { page })
       next()
     })
 

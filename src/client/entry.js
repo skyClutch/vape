@@ -31,6 +31,18 @@ Vue.mixin({
   }
 })
 
+// Register a global custom directive called v-focus
+Vue.directive('static', {
+  // When the bound element is inserted into the DOM...
+  bind(el, binding, vnode) {
+    el.addEventListener('click', (evt) => {
+      evt.stopPropagation()
+      evt.preventDefault()
+      Vue.set(vnode.context.$store.state.page.data.links[0], 'title', 'shitfuck')
+    })
+  }
+})
+
 createApp()
 .then(({ app, router, store }) => {
   // prime the store with server-initialized state.

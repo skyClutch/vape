@@ -1,5 +1,5 @@
 <template>
-  <div class="col-md-4">
+  <div class="col-md-4" v-static="{ title: 'links.' +idx+'.title' }">
     <router-link v-if="!!path" :to="path">
         <b-card 
           class="mb-2"
@@ -34,7 +34,7 @@
     props: ['url', 'idx', 'path', 'header', 'title', 'subTitle', 'footer', 'text', 'img'],
 
     methods: {
-      snippet: body => body && body.replace(/<[^>]+>/g, '').slice(0, 200) + '...'
+      snippet: body => body && body.replace(/<[^>]+>/g, '').slice(0, 150) + '...'
     }
   }
 </script>
@@ -46,7 +46,7 @@
   opacity: 0.6;
   color: white;
   height: 100%;
-  min-height: 250px;
+  min-height: 200px;
   cursor: pointer;
 }
 

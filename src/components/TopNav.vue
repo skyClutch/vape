@@ -29,7 +29,7 @@
     name: 'top-nav',
     methods: {
       topPages() {
-        return this.$store.state.pages.filter(p => !p.parentId)
+        return Object.values(this.$store.state.pages).filter(p => !p.parentId)
       }
     }
   }

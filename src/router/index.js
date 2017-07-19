@@ -9,8 +9,8 @@ const createListView = id => () => import('../views/CreateListView').then(m => m
 const ItemView = () => import('../views/ItemView.vue')
 const UserView = () => import('../views/UserView.vue')
 
-export function createRouter () {
-  return getPageRoutes()
+export function createRouter (store) {
+  return getPageRoutes(store)
   .then(pageRoutes => {
     return new Router({
       mode: 'history',

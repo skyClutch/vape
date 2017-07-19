@@ -6,7 +6,7 @@ import getters from './getters'
 
 Vue.use(Vuex)
 
-export function createStore (pages) {
+export function createStore () {
   return new Vuex.Store({
     state: {
       activeType: null,
@@ -20,7 +20,7 @@ export function createStore (pages) {
         ask: [],
         job: []
       },
-      pages: pages.filter(page => !!page),
+      pages: {},
       page: null
     },
     actions,

@@ -2,7 +2,7 @@ import apollo from '../lib/apollo-client'
 import gql from 'graphql-tag'
 import Vue from 'vue'
 
-export default function getPageRoutes() {
+export default function getPageRoutes(store) {
   return apollo.query({
     query: gql`{
       allPages {
@@ -44,12 +44,12 @@ export default function getPageRoutes() {
         page.data.children = pages.filter(p => p.parentId === page.id)
         page.path = route
 
-        // TODO add the ability to load like a .vue file
-        // or add all possible props
+        store.commit('SET_PAGE', { page })
+
         return { 
           path: route,
           component: Vue.component(route.slice(1).replace(/\//g, '-'), {
-            data: () => page.data,
+            data: () => store.state.pages[page.id].data,
             template: page.template
           }),
           page
