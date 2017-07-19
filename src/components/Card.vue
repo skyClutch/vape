@@ -1,5 +1,5 @@
 <template>
-  <div class="col-md-4" v-static="{ title: 'links.' +idx+'.title' }">
+  <div class="col-md-4" v-static="{ '.card-title': 'links.' + idx + '.title', '.snippet': 'links.' + idx + '.text' }">
     <router-link v-if="!!path" :to="path">
         <b-card 
           class="mb-2"
@@ -9,7 +9,7 @@
           :sub-title="subTitle"
           :style="{ background: (idx % 2 === 0 ? '#fff' : '#eee'), color: 'black' }"
         >
-          {{ snippet(text) }}
+          <p class="snippet">{{ snippet(text) }}</p>
         </b-card>
     </router-link>
     <a v-if="!!url" :href="url" target="_blank">
@@ -21,7 +21,7 @@
           :sub-title="subTitle"
           :style="{ background: (idx % 2 === 0 ? '#fff' : '#eee'), color: 'black' }"
         >
-          {{ text }}
+          <span class="snippet">{{ text }}</span>
         </b-card>
     </a>
   </div>

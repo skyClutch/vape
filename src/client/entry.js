@@ -2,8 +2,7 @@ import Vue from 'vue'
 import 'es6-promise/auto'
 import { createApp } from '../app'
 import ProgressBar from '../components/ProgressBar.vue'
-
-let mounted = false
+import { staticDirective } from '../directives'
 
 // global progress bar
 const bar = Vue.prototype.$bar = new Vue(ProgressBar).$mount()
@@ -31,17 +30,8 @@ Vue.mixin({
   }
 })
 
-// Register a global custom directive called v-focus
-Vue.directive('static', {
-  // When the bound element is inserted into the DOM...
-  bind(el, binding, vnode) {
-    el.addEventListener('click', (evt) => {
-      evt.stopPropagation()
-      evt.preventDefault()
-      Vue.set(vnode.context.$store.state.page.data.links[0], 'title', 'shitfuck')
-    })
-  }
-})
+// Register a global custom directive called v-static
+Vue.directive('static', staticDirective)
 
 createApp()
 .then(({ app, router, store }) => {
@@ -50,6 +40,9 @@ createApp()
   if (window.__INITIAL_STATE__) {
     store.replaceState(window.__INITIAL_STATE__)
   }
+
+  // set initial page
+  Vue.set(store.state, 'page', Object.values(store.state.pages).find(page => page.id === store.state.page.id))
 
   // wait until router has resolved all async before hooks
   // and async components...

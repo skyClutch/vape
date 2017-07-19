@@ -31,7 +31,7 @@ export default {
   },
 
   SET_CURRENT_PAGE: (state, { page }) => {
-    state.page = page
+    Vue.set(state, 'page', page)
   },
 
   SET_USER: (state, { id, user }) => {
