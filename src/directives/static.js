@@ -107,7 +107,7 @@ function getRandomPlaceHolder() {
 function savePageData(page) {
   let json = JSON.stringify(page.data)
   
-  return apollo.mutate({
+  return apollo().mutate({
     mutation: gql`mutation ($id: Int!, $data: Json) {
       updatePageById(input: {id: $id, pagePatch: {
         data: $data

@@ -2,11 +2,22 @@ import 'isomorphic-fetch'
 import ApolloClient, { createNetworkInterface } from 'apollo-client'
 import { APP_URL } from '../client/config'
 
-const inBrowser = typeof window !== 'undefined';
-const networkInterface = createNetworkInterface({
-    uri: `${APP_URL}/graphql`,
-    // all updates are sent from the client, so we skip the cache on the server
-    fetchPolicy: inBrowser ? 'cache-first' : 'network-only'
-})
+const isBrowser = typeof window !== 'undefined'
+const client = isBrowser ? createApolloClient() : null
 
-export default new ApolloClient({ networkInterface })
+export default function getApolloClient() {
+  if (isBrowser)
+    return client
+  else
+    return createApolloClient()
+}
+
+function createApolloClient() {
+  const networkInterface = createNetworkInterface({
+      uri: `${APP_URL}/graphql`,
+  })
+
+	console.log('making new client')
+
+  return new ApolloClient({ networkInterface })
+}

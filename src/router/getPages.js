@@ -3,7 +3,7 @@ import gql from 'graphql-tag'
 import Vue from 'vue'
 
 export default function (store) {
-  return apollo.query({
+  return apollo().query({
     query: gql`{
       allPages {
         edges {
