@@ -4,6 +4,13 @@ import gql from 'graphql-tag'
 
 const state = {}
 
+if (typeof document !== 'undefined') {
+  document.addEventListener('click', evt => {
+    if (!evt.target.dataset.editing)
+      unsetEditables()
+  })
+}
+
 export default {
   bind(el, binding, vnode) {
 
@@ -39,9 +46,6 @@ function setEditable(el, child, path, binding, vnode) {
 
     setByPath(page.data, path, child.innerText)
     savePageData(page)
-
-    if (!evt.target.dataset.editing)
-      unsetEditables()
   })
 }
 
