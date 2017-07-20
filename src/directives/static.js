@@ -31,12 +31,12 @@ function setEditable(el, child, path, binding, vnode) {
   child.style.borderRadius = '.2em'
   child.dataset.editing    = true
 
-  // don't let them disappear
-  if (child.innerText.trim() === '')
-    child.innerText = getRandomPlaceHolder()
-
   // save on blur
   child.addEventListener('blur', evt => {
+    // don't let them disappear
+    if (child.innerText === '')
+      child.innerText = getRandomPlaceHolder()
+
     setByPath(page.data, path, child.innerText)
     savePageData(page)
 
