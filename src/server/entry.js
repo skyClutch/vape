@@ -23,6 +23,8 @@ export default context => {
       // set router's location
       router.push(url)
 
+      // get a fresh set of the pages on every server load
+
       // wait until router has resolved possible async hooks
       router.onReady(() => {
         const matchedComponents = router.getMatchedComponents()

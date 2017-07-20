@@ -1,8 +1,8 @@
-import apollo from '../lib/apollo-client'
+import apollo from '../lib/ApolloClient'
 import gql from 'graphql-tag'
 import Vue from 'vue'
 
-export default function getPageRoutes(store) {
+export default function (store) {
   return apollo.query({
     query: gql`{
       allPages {

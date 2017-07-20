@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import getPageRoutes from './getPageRoutes'
+import getPages from './getPages'
 
 Vue.use(Router)
 
@@ -10,7 +10,7 @@ const ItemView = () => import('../views/ItemView.vue')
 const UserView = () => import('../views/UserView.vue')
 
 export function createRouter (store) {
-  return getPageRoutes(store)
+  return getPages(store)
   .then(pageRoutes => {
     return new Router({
       mode: 'history',

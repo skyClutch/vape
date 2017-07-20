@@ -9,7 +9,7 @@
           :sub-title="subTitle"
           :style="{ background: (idx % 2 === 0 ? '#fff' : '#eee'), color: 'black' }"
         >
-          <p class="snippet">{{ snippet(text) }}</p>
+        <div class="snippet">{{ snippet(text) }}</div>
         </b-card>
     </router-link>
     <a v-if="!!url" :href="url" target="_blank">
