@@ -1,5 +1,5 @@
 <template>
-  <div class="col-md-4" v-static="{ '.card-title': 'links.' + idx + '.title', '.snippet': 'links.' + idx + '.text' }">
+  <div class="col-md-4">
     <router-link v-if="!!path" :to="path">
         <b-card 
           class="mb-2"

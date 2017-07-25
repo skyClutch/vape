@@ -60,6 +60,6 @@ function parseFile(path, values) {
 
     let data = script.data && script.data() || {}
 
-    return values.push(`(${data.authorId || 1}, '${script.name}', '${data.title || null}', '${template}', '${JSON.stringify(data)}', ${data.parentId || null})`)
+    return values.push(`(${data.authorId || 1}, '${script.name}', '${data.title || null}', $$${template}$$, '${JSON.stringify(data)}', ${data.parentId || null})`)
   })
 }

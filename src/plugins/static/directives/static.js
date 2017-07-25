@@ -1,7 +1,3 @@
-import setByPath from '../util/setByPath'
-import apollo from '../lib/ApolloClient'
-import gql from 'graphql-tag'
-
 const state = {}
 
 if (typeof document !== 'undefined') {
@@ -27,9 +23,7 @@ export default {
   }
 }
 
-function setEditable(el, child, path, binding, vnode) {
-  let page    = vnode.context.$store.state.page
-
+function setEditable(el, child, path, binding, vnode, ctx) {
   // make it obvious
   child.contentEditable    = true
   child.style.borderWidth  = '1px'
@@ -44,8 +38,7 @@ function setEditable(el, child, path, binding, vnode) {
     if (child.innerText === '')
       child.innerText = getRandomPlaceHolder()
 
-    setByPath(page.data, path, child.innerText)
-    savePageData(page)
+    vnode.context.setStatic(path, child.innerText, ctx)
   })
 }
 
@@ -55,14 +48,19 @@ function setEditables(el, binding, vnode) {
 
   el.dataset.editing = true
 
+  let ctx = binding.value.ctx
+
   for (let selector in binding.value) {
     let path = binding.value[selector]
 
+    if (selector === 'ctx') {
+      continue
+    }
     if (selector === 'path') {
-      setEditable(el, el, path, binding, vnode)
+      setEditable(el, el, path, binding, vnode, ctx)
     } else {
       el.querySelectorAll(selector).forEach(child => {
-        setEditable(el, child, path, binding, vnode)
+        setEditable(el, child, path, binding, vnode, ctx)
       })
     }
   }
@@ -106,24 +104,4 @@ function getRandomPlaceHolder() {
   ]
 
   return placeholders[Math.floor(Math.random() * placeholders.length)]
-}
-
-function savePageData(page) {
-  let json = JSON.stringify(page.data)
-  
-  return apollo().mutate({
-    mutation: gql`mutation ($id: Int!, $data: Json) {
-      updatePageById(input: {id: $id, pagePatch: {
-        data: $data
-      }
-      }){page {id, data}}
-    }`,
-    variables: {
-      id: page.id,
-      data: json
-    }
-  })
-  .then(result => {
-    console.log(result)
-  })
 }
