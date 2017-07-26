@@ -2,7 +2,7 @@ import Vue from 'vue'
 import 'es6-promise/auto'
 import { createApp } from '../app'
 import ProgressBar from '../components/ProgressBar.vue'
-import { staticDirective } from '../directives'
+import { staticPlugin } from '../plugins'
 
 // global progress bar
 const bar = Vue.prototype.$bar = new Vue(ProgressBar).$mount()
@@ -30,8 +30,7 @@ Vue.mixin({
   }
 })
 
-// Register a global custom directive called v-static
-Vue.directive('static', staticDirective)
+Vue.use(staticPlugin)
 
 createApp()
 .then(({ app, router, store }) => {
