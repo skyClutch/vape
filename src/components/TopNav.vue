@@ -20,6 +20,8 @@
         <b-link href="https://twitter.com" target="_blank" right>
           <img src="/public/social-twitter.png" class="social-icon"/>
         </b-link>
+        <b-button v-if="!editing" @click="toggleEditable" variant="danger">edit</b-button>
+        <b-button v-if="editing" @click="toggleEditable" variant="success">stop edit</b-button>
 		</b-navbar>
   </header>
 </template>
@@ -27,7 +29,15 @@
 <script>
   export default {
     name: 'top-nav',
+    computed: {
+      editing() {
+        return this.$store.state.editing
+      }
+    },
     methods: {
+      toggleEditable() {
+        this.$store.state.editing = !this.$store.state.editing
+      },
       topPages() {
         return Object.values(this.$store.state.pages).filter(p => !p.parentId)
       }

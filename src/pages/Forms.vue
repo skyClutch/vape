@@ -1,12 +1,12 @@
 <template>
   <div class="row">
     <card v-for="(link, idx) in links" :key="link.id"
-          :idx="idx"
-          :url="link.path"
-          :title="link.title"
-          :text="link.text"
-          :links="links"
-          ></card>
+      v-bind:idx="idx"
+      v-bind:url="link.path"
+      v-bind:title="link.title"
+      v-bind:text="link.text"
+      v-static="{ '.snippet': 'text', '.card-title': 'title', ctx: link }"
+    ></card>
   </div>
 </template>
 

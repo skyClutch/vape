@@ -1,0 +1,41 @@
+#!/bin/bash
+file_string="(function () {
+var tests=[
+    "$(cat "$1")"
+];
+
+run_tests(0);
+
+function run_tests(idx) {
+    if (!tests[idx])
+        return;
+
+    var obj      = tests[idx],
+        check    = obj.check,
+        interval = obj.interval || 500,
+        retry    = obj.retry--,
+        test     = obj.test,
+        name     = obj.name,
+        next     = false;
+
+    if (check) {
+        if (check() || retry < 1)
+            next = true;
+        else {
+            console.log('retrying', name, '...');
+            setTimeout(run_tests, interval, idx);
+        }
+    }
+    else {
+        next = true;
+    }
+
+    if (next) {
+        if (test)
+            test();
+        run_tests(idx + 1);
+    }
+}
+})();
+"
+cat<<<"$file_string" | pbcopy

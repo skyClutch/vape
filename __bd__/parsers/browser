@@ -1,0 +1,57 @@
+#!/bin/bash
+last_line="$1"
+heading="$2"
+statement="$3"
+
+if [ ! -z "$(echo "$statement" | grep '^run')" ]
+then
+    statement="$(echo $statement | sed 's/^run *//')"
+    cat<<here
+    {
+      name: '$heading',
+
+      test: function () {
+        $statement;
+      }
+    },
+here
+elif [ ! -z "$(echo "$statement" | grep '^await')" ]
+then
+    statement="$(echo $statement | sed 's/^await *//')"
+    cat<<here
+    {
+        name: '$heading',
+
+        check: function () {
+            return $statement;
+        },
+
+        interval: 1000,
+
+        retry: 10
+    },
+here
+elif [ -z "$statement" ]
+then
+  cat<<here
+  // $heading - $last_line
+here
+else
+    if [ ! -z "$(echo "$statement" | grep '^test')" ]
+    then
+        statement="$(echo $statement | sed 's/^test *//')"
+    fi
+
+    cat<<here
+    {
+      name: '$heading',
+
+      test: function () {
+        if (!($statement))
+            console.error('Fail: $heading - $last_line');
+        else
+            console.log('Success: $heading - $last_line');
+      }
+    },
+here
+fi

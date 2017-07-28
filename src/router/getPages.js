@@ -32,8 +32,6 @@ export default function (store) {
           data = {}
         }
 
-        data.title = page.title
-
         return Object.assign({}, page, { data })
       })
 

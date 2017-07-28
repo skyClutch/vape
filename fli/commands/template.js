@@ -1,8 +1,30 @@
 const fs = require('fs')
 const values = []
 const fwf = require('fun_with_flags')
+const config = require('../../src/server/config')
 
 module.exports = {
+  dump: {
+    description: 'dumps current pages',
+
+    exec(target) {
+      return fwf.shell('pg_dump', [config.PSQL_ADMIN_URI, '-t', `${config.PSQL_SCHEMA}.page`, '-a', '--column-inserts'])
+      .then(result => {
+        return result.data.match(/INSERT.*/g).join('\n')
+        .replace(/INSERT INTO page/g, `INSERT INTO ${config.PSQL_SCHEMA}.page`)
+      })
+      .then(insert => {
+        return new Promise((res, rej) => {
+          fs.writeFile('schema/2017-07-14T06:48:57.618Z-page-seed-data.sql', insert, (err) => {
+            if (err)
+              return rej(err)
+            res(insert)
+          })
+        })
+      })
+    }
+  },
+
   export: {
     description: '<path> <authorId> <parentId> exports template as value array for sql insert',
 
@@ -21,7 +43,7 @@ module.exports = {
           p.then(() => res(values.join(',\n  ')))
         })
       })
-      .then(valueString => `insert into pta_dist_14.page (author_id, route, title, template, data, parent_id) values\n  ${valueString}`)
+      .then(valueString => `insert into ${config.PSQL_SCHEMA}.page (author_id, route, title, template, data, parent_id) values\n  ${valueString}`)
       .then(insert => {
         return new Promise((res, rej) => {
           fs.writeFile('schema/2017-07-14T06:48:57.618Z-page-seed-data.sql', insert, (err) => {

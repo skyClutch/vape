@@ -1,10 +1,9 @@
 <template>
-  <div> 
+  <div v-static="{ h1: 'title', 'div.backdrop': 'body' }"> 
     <jumbo-tron :title="title" :img="img"></jumbo-tron>
     <div class="backdrop" v-html="body"> </div>
-    </div>
+  </div>
 </template>
-
 
 <script>
   export default {

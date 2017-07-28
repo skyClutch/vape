@@ -1,0 +1,15 @@
+#!/bin/bash
+last_line="$1"
+heading="$2"
+statement="$3"
+
+# statement=`eval set - $3`
+
+cat<<here
+if [ -z "\$(grep -E $statement "bash_down/build/spec.md")" ]
+then
+  echo -e "\033[31mPattern $heading : $last_line - $statement not found!\033[0m"
+else
+  echo -e "\033[32mPattern $heading : $last_line - $statement found!\033[0m"
+fi
+here

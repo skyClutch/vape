@@ -1,9 +1,7 @@
 <template>
-  <div class="row"> 
+  <div v-static="{ h1: 'title', 'div.backdrop': 'body' }"> 
     <jumbo-tron :title="title" :img="img"></jumbo-tron>
-    <div class="backdrop">
-      <p>{{body}}</p>
-    </div>
+    <div class="backdrop" v-html="body"></div>
   </div>
 </template>
 
