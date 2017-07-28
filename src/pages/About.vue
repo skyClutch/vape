@@ -1,5 +1,6 @@
 <template>
   <div class="row">
+    <jumbo-tron :title="title"></jumbo-tron>
     <card v-for="(page, idx) in $store.state.page.data.children" :key="page.id"
       v-bind:path="page.data.route"
       v-bind:text="page.data.body"

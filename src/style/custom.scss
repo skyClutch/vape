@@ -16,3 +16,12 @@ $brand-info: #41577d;
 body ul {
   list-style: none;
 }
+body {
+  background-color: black;
+  background-image: url(/public/background.jpg);
+  transition: background-image 1000ms ease-in 250ms;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}

@@ -12,7 +12,13 @@
 
 <script>
 export default {
-  name: 'app'
+  name: 'app',
+  mounted() {
+    setTimeout(_ => {
+      var bg = `/public/bg/${Math.floor(Math.random() * 6) + 1}.jpg`
+      document.getElementsByTagName('body')[0].style.backgroundImage = `url(${bg})`
+    }, 500)
+  }
 }
 </script>
 
@@ -68,8 +74,6 @@ body
   margin 0
   padding-top 88px
   overflow-y scroll
-  background: #dedede url("/public/background.jpg") no-repeat fixed center; 
-  background-size cover
 
   a
     color black

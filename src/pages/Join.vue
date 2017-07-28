@@ -1,5 +1,5 @@
 <template>
-  <div v-static="{ h1: 'title', 'div.backdrop': 'body' }"> 
+  <div v-static="{ h2: 'title', 'div.backdrop': 'body' }"> 
     <jumbo-tron :title="title" :img="img"></jumbo-tron>
     <div class="backdrop" v-html="body"></div> 
   </div>

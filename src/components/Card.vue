@@ -43,7 +43,7 @@
 .card {
   border: none;
   border-radius: 0;
-  opacity: 0.6;
+  opacity: 0.7;
   color: white;
   height: 100%;
   min-height: 200px;
@@ -53,6 +53,6 @@
 .card:hover {
   background: #666 !important;
   color: white !important;
-  opacity: 0.7;
+  opacity: 0.8;
 }
 </style>
