@@ -1,3 +1,5 @@
+import { sanitize, clearFormatting } from '../util'
+
 // space to save current el, binding, vnode and ctx
 const state = {}
 
@@ -30,8 +32,10 @@ function blurHandler(evt) {
   if (this.innerText.trim() === '')
     this.innerText = getRandomPlaceHolder()
 
+  let clean = sanitize(this.innerHTML)
+
   // save the data
-  state.vnode.context.setStatic(this.dataset.path, this.innerHTML, state.ctx)
+  state.vnode.context.setStatic(this.dataset.path, clean, state.ctx)
 
   // add listener for document and curent parent el
   document.addEventListener('click', nextClick)
