@@ -6,7 +6,7 @@
       v-bind:url="link.path"
       v-bind:title="link.title"
       v-bind:text="link.text"
-      v-static="{ '.snippet': 'text', '.card-title': 'title', ctx: link }"
+      v-static="{ '.snippet': 'text', '.card-title': 'title', ctx: link, destroy: 'links.' + idx }"
     ></card>
   </div>
 </template>

@@ -21,7 +21,7 @@
           :sub-title="subTitle"
           :style="{ background: (idx % 2 === 0 ? '#fff' : '#eee'), color: 'black' }"
         >
-          <span class="snippet" v-html="text"></span>
+          <div class="snippet" v-html="text"></div>
         </b-card>
     </a>
   </div>

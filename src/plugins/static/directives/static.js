@@ -1,4 +1,5 @@
 import { sanitize, clearFormatting } from '../util'
+import Vue from 'vue'
 
 // space to save current el, binding, vnode and ctx
 const state = {}
@@ -84,12 +85,28 @@ function setEditables(el, binding, vnode) {
   for (let selector in binding.value) {
     let path = binding.value[selector]
 
+    // TODO make switch
     if (selector === 'ctx') {
       continue
     }
-    if (selector === 'path') {
+    else if (selector === 'path') {
       setEditable(el, el, path, binding, vnode, ctx)
-    } else {
+    } 
+    else if (selector === 'destroy') {
+      let span = document.createElement('span')
+      span.className = 'vape-destroy'
+      el.parentNode.insertBefore(span, el)
+      state.vm = new Vue({
+        el: el.parentNode.querySelector('span.vape-destroy'),
+        template: `<div style="position: relative; width: 100%; z-index: 99999;"><b-button @click="deleteStatic" size="sm" variant="danger" style="position: absolute; right: 0px;">x</b-button></div>`,
+        parent: vnode.context,
+        data: {
+          ctx: ctx,
+          path: path
+        }
+      })
+    } 
+    else {
       el.querySelectorAll(selector).forEach(child => {
         setEditable(el, child, path, binding, vnode, ctx)
       })
@@ -118,6 +135,11 @@ function unsetEditables() {
     let path = binding.value[selector]
     if (selector === 'path') {
       unsetEditable(el)
+    } else if (selector === 'destroy') {
+      if (state.vm) {
+        state.vm.$el.remove()
+        state.vm.$destroy()
+      }
     } else {
       el.querySelectorAll(selector).forEach(child => {
         unsetEditable(child)

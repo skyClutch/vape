@@ -1,14 +1,11 @@
-# Vape
+# 1  Vape
 Vape is awesome
 
-## TODO
+## 1.1  TODO
 
-- fix hydration fail
 - make list editing component using provide/inject
   - do recursive search to find and destroy objects
   - add controls for adding/moving elements
-  - add control for removing all formatting
-    - leave semantic html?
 - add markdown support
 - add twitter
 - add google calendar

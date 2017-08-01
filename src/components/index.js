@@ -3,9 +3,9 @@ import JumboTron from './JumboTron.vue'
 import TopNav from './TopNav.vue'
 
 const components = {
+  Card,
   JumboTron,
-  TopNav,
-  Card
+  TopNav
 }
 
 /* eslint-disable no-var, no-undef, guard-for-in, object-shorthand */
