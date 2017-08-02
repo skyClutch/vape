@@ -6,7 +6,6 @@ const state = {}
 
 export default {
   bind(el, binding, vnode) {
-
     // make specified elements editable when clicking
     el.addEventListener('click', (evt) => {
       // if we are not in edit mode do nothing

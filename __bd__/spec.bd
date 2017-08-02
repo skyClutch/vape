@@ -3,14 +3,13 @@ Vape is awesome
 
 ## TODO
 
-- fix hydration fail
 - make list editing component using provide/inject
-  - do recursive search to find and destroy objects
   - add controls for adding/moving elements
   - add control for removing all formatting
-    - leave semantic html?
-- add markdown support
+    - leave semantic html
+- move page templates out of db
 - add twitter
 - add google calendar
 - add the rest of the pages
   - move page templates off server (eventually get from S3)
+- add markdown support

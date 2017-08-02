@@ -1,6 +1,7 @@
 <template>
   <div class="row">
     <jumbo-tron :title="title"></jumbo-tron>
+    <list-control list="links" :blueprint="{ title: 'title', text: 'text', path: 'path' }"></list-control>
     <card v-for="(link, idx) in links" :key="link.id"
       v-bind:idx="idx"
       v-bind:url="link.path"
