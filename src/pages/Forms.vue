@@ -3,10 +3,11 @@
     <jumbo-tron :title="title"></jumbo-tron>
     <list-control list="links" :blueprint="{ title: 'title', text: 'text', path: 'path' }"></list-control>
     <card v-for="(link, idx) in links" :key="link.id"
-      v-bind:idx="idx"
-      v-bind:url="link.path"
-      v-bind:title="link.title"
-      v-bind:text="link.text"
+      :idx="idx"
+      :url="link.path"
+      :title="link.title"
+      :text="link.text"
+      :key="link.title"
       v-static="{ '.snippet': 'text', '.card-title': 'title', ctx: link, destroy: 'links.' + idx }"
     ></card>
   </div>

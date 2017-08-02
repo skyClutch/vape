@@ -6,6 +6,7 @@ const state = {}
 
 export default {
   bind(el, binding, vnode) {
+    console.log('binding', binding);
     // make specified elements editable when clicking
     el.addEventListener('click', (evt) => {
       // if we are not in edit mode do nothing
@@ -76,6 +77,8 @@ function setEditables(el, binding, vnode) {
   el.dataset.editing = true
 
   let ctx = binding.value.ctx
+
+  console.log(ctx);
 
   // save for clearing next time
   Object.assign(state, { el, binding, vnode, ctx })
