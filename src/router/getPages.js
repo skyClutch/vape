@@ -5,20 +5,14 @@ import pageFiles from '../pages'
 
 export default function (store) {
   return apollo().query({
-    query: gql`{
-      allPages {
-        edges {
-          node {
+    query: gql`{ allPages { edges { node {
             id
             parentId
             route
             title
             template
             data
-          }
-        }
-      }
-    }`
+    } } } }` 
   })
   .then(result => {
     try {

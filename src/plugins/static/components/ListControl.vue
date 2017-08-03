@@ -18,7 +18,6 @@ import { getByPath } from '../../../util'
       addItem() {
         let list = getByPath(this.$store.state.page.data, this.list)
         list.push(Object.assign({}, this.blueprint))
-        window.list = list
         this.savePageData()
       }
     },

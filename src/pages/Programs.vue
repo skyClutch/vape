@@ -8,7 +8,7 @@
       v-bind:text="link.text"
           v-static="{ '.snippet': 'text', '.card-title': 'title', ctx: link, list: links, hidden: ['url'] }"
     ></card>
-    <list-control list="links" :blueprint="{ title: 'title', text: 'text', path: 'path' }"></list-control>
+    <list-control list="links" :blueprint="{ title: 'title', text: 'text', url: 'url' }"></list-control>
   </div>
 </template>
 
