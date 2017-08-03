@@ -38,6 +38,7 @@ export default function (store) {
 
       return pages.map(page => {
         let route = getRoute(page, pages)
+        let pageFile = Object.values(pageFiles).find(pF => pF.name === page.route)
 
         page.data.route = route
         page.data.children = pages.filter(p => p.parentId === page.id)
@@ -45,13 +46,11 @@ export default function (store) {
 
         store.commit('SET_PAGE', { page })
 
+        pageFile.data = x => store.state.pages[page.id].data
+
         return { 
           path: route,
-          component: Vue.component(route.slice(1).replace(/\//g, '-'), {
-            data: () => store.state.pages[page.id].data,
-            render: Object.values(pageFiles).find(pF => pF.name === page.route).render
-          }),
-          page
+          component: pageFile,
         }
       })
     } catch (e) {
