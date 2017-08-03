@@ -1,6 +1,7 @@
 import apollo from '../lib/ApolloClient'
 import gql from 'graphql-tag'
 import Vue from 'vue'
+import pageFiles from '../pages'
 
 export default function (store) {
   return apollo().query({
@@ -48,7 +49,7 @@ export default function (store) {
           path: route,
           component: Vue.component(route.slice(1).replace(/\//g, '-'), {
             data: () => store.state.pages[page.id].data,
-            template: page.template
+            render: Object.values(pageFiles).find(pF => pF.name === page.route).render
           }),
           page
         }

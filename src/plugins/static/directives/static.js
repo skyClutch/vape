@@ -155,8 +155,6 @@ function unsetEditable(child) {
 function unsetEditables() {
   let { el, binding, vnode } = state
 
-  console.log('unsetting');
-
   if (!el || !binding || !vnode)
     return
 
