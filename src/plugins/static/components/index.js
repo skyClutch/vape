@@ -1,3 +1,4 @@
 import ListControl from './ListControl.vue'
+import ListItemControl from './ListItemControl.vue'
 
-export { ListControl }
+export { ListControl, ListItemControl }

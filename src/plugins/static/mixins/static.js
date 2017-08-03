@@ -5,15 +5,6 @@ import gql from 'graphql-tag'
 
 export default {
   methods: {
-    deleteStatic() {
-      let page = this.$store.state.page
-      
-      deleteByPath(page.data, this.path)
-      this.savePageData()
-      this.$el.remove()
-      this.$destroy()
-    },
-
     setStatic(path, value, context = this) {
       let page = this.$store.state.page
 

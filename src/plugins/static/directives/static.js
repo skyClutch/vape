@@ -1,4 +1,5 @@
 import { sanitize, clearFormatting } from '../util'
+import { getByPath } from '../../../util'
 import Vue from 'vue'
 
 // space to save current el, binding, vnode and ctx
@@ -6,7 +7,6 @@ const state = {}
 
 export default {
   bind(el, binding, vnode) {
-    console.log('binding', binding);
     // make specified elements editable when clicking
     el.addEventListener('click', (evt) => {
       // if we are not in edit mode do nothing
@@ -39,22 +39,21 @@ function blurHandler(evt) {
   state.vnode.context.setStatic(this.dataset.path, clean, state.ctx)
 
   // add listener for document and curent parent el
-  document.addEventListener('click', nextClick)
   state.el.addEventListener('click', nextClick)
+}
 
-  // handle events after blur
-  function nextClick(evt) {
-    // if the event hits the current parent element don't let bubble to document
-    if (this.dataset && this.dataset.editing)
-      evt.stopPropagation()
-    // if click triggered elsewhere unset current elements
-    else
-      unsetEditables()
+// handle events after blur
+function nextClick(evt) {
+  // if the event hits the current parent element don't let bubble to document
+  if (this.dataset && this.dataset.editing)
+    evt.stopPropagation()
+  // if click triggered elsewhere unset current elements
+  else
+    unsetEditables()
 
-    // keep listeners from piling up
-    state.el.removeEventListener('click', nextClick)
-    document.removeEventListener('click', nextClick)
-  }
+  // keep listeners from piling up
+  state.el.removeEventListener('click', nextClick)
+  document.removeEventListener('click', nextClick)
 }
 
 function setEditable(el, child, path, binding, vnode, ctx) {
@@ -66,48 +65,74 @@ function setEditable(el, child, path, binding, vnode, ctx) {
   child.style.borderRadius = '.2em'
   child.dataset.editing    = true
   child.dataset.path       = path
-  child.dataset.vnode      = vnode
 
   // save on blur
   child.addEventListener('blur', blurHandler)
-}
 
+  // add click event to doc
+  document.addEventListener('click', nextClick)
+}
 
 function setEditables(el, binding, vnode) {
   el.dataset.editing = true
 
+  // set context
   let ctx = binding.value.ctx
-
-  console.log(ctx);
 
   // save for clearing next time
   Object.assign(state, { el, binding, vnode, ctx })
 
-
+  // iterate through v-static value
   for (let selector in binding.value) {
     let path = binding.value[selector]
 
-    // TODO make switch
+    // we've already set the ctx
     if (selector === 'ctx') {
       continue
     }
+    // path for making el editable, no children
     else if (selector === 'path') {
       setEditable(el, el, path, binding, vnode, ctx)
     } 
-    else if (selector === 'destroy') {
+    // if we have a list, add list controls
+    else if (selector === 'list') {
       let span = document.createElement('span')
-      span.className = 'vape-destroy'
+      span.className = 'list-item-control'
       el.parentNode.insertBefore(span, el)
       state.vm = new Vue({
-        el: el.parentNode.querySelector('span.vape-destroy'),
-        template: `<div style="position: relative; width: 100%; z-index: 99999;"><b-button @click="deleteStatic" size="sm" variant="danger" style="position: absolute; right: 0px;">x</b-button></div>`,
+        el: el.parentNode.querySelector('span.list-item-control'),
+        template: '<list-item-control list="list" item="item"></list-item-control>',
         parent: vnode.context,
-        data: {
-          ctx: ctx,
-          path: path
+        provide: {
+          list: path,
+          item: ctx
         }
       })
     } 
+    // add hidden elements
+    else if (selector === 'hidden') {
+      let editables = el.querySelectorAll('[contenteditable=true]')
+      let editableParent = editables[editables.length - 1].parentNode
+
+      let hidden = document.createElement('strong')
+      hidden.className = 'v-static-hidden'
+      hidden.innerHTML = 'hidden:'
+
+      editableParent.appendChild(hidden)
+
+      path.forEach(prop => {
+        let className = `v-static-hidden-${prop}`
+        let p = document.createElement('p')
+
+        p.className = className
+        p.innerHTML = getByPath(ctx, prop) || prop
+
+        editableParent.appendChild(p)
+
+        setEditable(el, el.querySelector(`p.${className}`), prop, binding, vnode, ctx)
+      })
+    }
+    // if we have a normal selector, make element editable
     else {
       el.querySelectorAll(selector).forEach(child => {
         setEditable(el, child, path, binding, vnode, ctx)
@@ -130,18 +155,37 @@ function unsetEditable(child) {
 function unsetEditables() {
   let { el, binding, vnode } = state
 
+  console.log('unsetting');
+
   if (!el || !binding || !vnode)
     return
 
   for (let selector in binding.value) {
     let path = binding.value[selector]
+    // unset el if no children
     if (selector === 'path') {
       unsetEditable(el)
-    } else if (selector === 'destroy') {
+    // remove list controls
+    } else if (selector === 'list') {
       if (state.vm) {
         state.vm.$el.remove()
         state.vm.$destroy()
       }
+    // remove hidden elements
+    } else if (selector === 'hidden') {
+      let hidden = el.querySelector('.v-static-hidden')
+
+      if (hidden)
+        hidden.remove()
+
+      path.forEach(prop => {
+        let className = `v-static-hidden-${prop}`
+        let hiddenProp = el.querySelector(`.${className}`)
+        
+        if (hiddenProp)
+          hiddenProp.remove()
+      })
+    // remove normal children
     } else {
       el.querySelectorAll(selector).forEach(child => {
         unsetEditable(child)
@@ -149,6 +193,7 @@ function unsetEditables() {
     }
   }
 
+  // unset editing flag
   delete el.dataset.editing
 }
 
