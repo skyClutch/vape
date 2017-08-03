@@ -42,7 +42,6 @@
 
         this.list.splice(idx, 1)
         this.list.splice(idx - 1, 0, this.item)
-        this.destroyAndSave()
       },
 
       moveRight() {
@@ -54,7 +53,6 @@
 
         this.list.splice(idx, 1)
         this.list.splice(idx + 1, 0, this.item)
-        this.destroyAndSave()
       }
     }
   }

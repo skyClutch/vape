@@ -98,9 +98,9 @@ function setEditables(el, binding, vnode) {
     else if (selector === 'list') {
       let span = document.createElement('span')
       span.className = 'list-item-control'
-      el.parentNode.insertBefore(span, el)
+      el.prepend(span)
       state.vm = new Vue({
-        el: el.parentNode.querySelector('span.list-item-control'),
+        el: span,
         template: '<list-item-control list="list" item="item"></list-item-control>',
         parent: vnode.context,
         provide: {

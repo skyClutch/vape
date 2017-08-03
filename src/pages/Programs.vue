@@ -1,13 +1,14 @@
 <template>
   <div class="row">
     <jumbo-tron :title="title"></jumbo-tron>
-    <card v-for="(link, idx) in links" :key="link.id"
+    <card v-for="(link, idx) in links" :key="link.title"
       v-bind:idx="idx"
       v-bind:url="link.url"
       v-bind:title="link.title"
       v-bind:text="link.text"
-      v-static="{ '.snippet': 'text', '.card-title': 'title', ctx: link }"
+          v-static="{ '.snippet': 'text', '.card-title': 'title', ctx: link, list: links, hidden: ['url'] }"
     ></card>
+    <list-control list="links" :blueprint="{ title: 'title', text: 'text', path: 'path' }"></list-control>
   </div>
 </template>
 
