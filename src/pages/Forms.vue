@@ -1,7 +1,6 @@
 <template>
   <div class="row">
     <jumbo-tron :title="title"></jumbo-tron>
-    <list-control list="links" :blueprint="{ title: 'title', text: 'text', path: 'path' }"></list-control>
     <card v-for="(link, idx) in links"
       :url="link.path"
       :title="link.title"
@@ -9,6 +8,7 @@
       :key="link.title"
       v-static="{ '.snippet': 'text', '.card-title': 'title', ctx: link, list: links, hidden: ['path'] }"
     ></card>
+    <list-control list="links" :blueprint="{ title: 'title', text: 'text', path: 'path' }"></list-control>
   </div>
 </template>
 

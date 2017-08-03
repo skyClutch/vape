@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="editing">
     <b-button @click="addItem" variant="success">+</b-button>
   </div>
 </template>
@@ -8,10 +8,16 @@
 import { getByPath } from '../../../util'
 
   export default {
+    computed: {
+      editing() {
+        return this.$store.state.editing
+      }
+    },
+
     methods: {
       addItem() {
         let list = getByPath(this.$store.state.page.data, this.list)
-        list.unshift(Object.assign({}, this.blueprint))
+        list.push(Object.assign({}, this.blueprint))
         window.list = list
         this.savePageData()
       }

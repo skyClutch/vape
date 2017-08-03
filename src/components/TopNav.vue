@@ -29,15 +29,18 @@
 <script>
   export default {
     name: 'top-nav',
+
     computed: {
       editing() {
         return this.$store.state.editing
       }
     },
+
     methods: {
       toggleEditable() {
-        this.$store.state.editing = !this.$store.state.editing
+        this.$set(this.$store.state, 'editing', !this.$store.state.editing)
       },
+
       topPages() {
         return Object.values(this.$store.state.pages).filter(p => !p.parentId)
       }
