@@ -3,13 +3,32 @@ Vape is awesome
 
 ## TODO
 
-- make list editing component using provide/inject
-  - add controls for adding/moving elements
-  - add control for removing all formatting
-    - leave semantic html
-- move page templates out of db
+### cms
+
+- add control for removing all formatting to v-static
+  - leave semantic html
+  - this is half-done (see util in the static plugin folder)
+- add layouts
+- add the rest of the pages
+  - make pages, components, layouts, plugins all build automatically from files in folders
+- add markdown support
+- add file upload
+- add auto-image upload
+- add settings page
+
+### pta site
+
 - add twitter
 - add google calendar
-- add the rest of the pages
-  - move page templates off server (eventually get from S3)
-- add markdown support
+- add contact form
+
+### frontend
+
+- fix double load of asyncData
+
+### backend
+
+- finish auth
+- extend api
+- add acl
+  - must provide utility for extensions to use auth/acl

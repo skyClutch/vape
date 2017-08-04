@@ -33,6 +33,7 @@ export default function (store) {
       return pages.map(page => {
         let route = getRoute(page, pages)
         let pageFile = Object.values(pageFiles).find(pF => pF.name === page.route)
+        let pageData = pageFile.data()
 
         page.data.route = route
         page.data.children = pages.filter(p => p.parentId === page.id)
@@ -40,7 +41,9 @@ export default function (store) {
 
         store.commit('SET_PAGE', { page })
 
-        pageFile.data = x => store.state.pages[page.id].data
+        pageFile.data = () => {
+          return Object.assign({}, pageData, store.state.pages[page.id].data)
+        }
 
         return { 
           path: route,

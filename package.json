@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "apollo-client": "^1.8.0",
+    "axios": "^0.16.2",
     "bootstrap-vue": "^0.18.0",
     "compression": "^1.6.2",
     "cross-env": "^4.0.0",
