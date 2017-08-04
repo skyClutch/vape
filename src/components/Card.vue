@@ -1,44 +1,32 @@
 <template>
-    <div class="col-md-4" v-if="!!path" >
-      <router-link :to="path">
-          <b-card 
-            class="mb-2"
-            :header="header"
-            :footer="footer"
-            :title="title"
-            :sub-title="subTitle"
-            :style="{ background: (idx % 2 === 0 ? '#fff' : '#eee'), color: 'black' }"
-          >
-          <div class="snippet" v-html="text"></div>
-          </b-card>
-      </router-link>
-    </div>
-    <div class="col-md-4" v-else-if="!!url">
-      <a :href="url" target="_blank">
-          <b-card 
-            class="mb-2"
-            :header="header"
-            :footer="footer"
-            :title="title"
-            :sub-title="subTitle"
-            :style="{ background: (idx % 2 === 0 ? '#fff' : '#eee'), color: 'black' }"
-          >
-            <div class="snippet" v-html="text"></div>
-          </b-card>
-      </a>
-    </div>
-    <div class="col-md-8" v-else-if="!path && !url">
-      <b-card 
-        class="mb-2"
-        :header="header"
-        :footer="footer"
-        :title="title"
-        :sub-title="subTitle"
-        :style="{ background: (idx % 2 === 0 ? '#fff' : '#eee'), color: 'black' }"
-      >
+  <div class="col-md-4" v-if="!!path" >
+    <router-link :to="path">
+        <b-card 
+          class="mb-2"
+          :header="header"
+          :footer="footer"
+          :title="title"
+          :sub-title="subTitle"
+          :style="{ background: (idx % 2 === 0 ? '#fff' : '#eee'), color: 'black' }"
+        >
         <div class="snippet" v-html="text"></div>
-      </b-card>
-    </div>
+        </b-card>
+    </router-link>
+  </div>
+  <div class="col-md-4" v-else-if="!!url">
+    <a :href="url" target="_blank">
+        <b-card 
+          class="mb-2"
+          :header="header"
+          :footer="footer"
+          :title="title"
+          :sub-title="subTitle"
+          :style="{ background: (idx % 2 === 0 ? '#fff' : '#eee'), color: 'black' }"
+        >
+          <div class="snippet" v-html="text"></div>
+        </b-card>
+    </a>
+  </div>
 </template>
 
 <script>

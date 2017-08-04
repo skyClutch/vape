@@ -30,6 +30,7 @@ Vue.mixin({
   }
 })
 
+// add static plugin
 Vue.use(staticPlugin)
 
 createApp()

@@ -25,6 +25,7 @@ Vape is awesome
 ### frontend
 
 - fix double load of asyncData
+  - prob in extry file
 
 ### backend
 

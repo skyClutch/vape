@@ -1,8 +1,10 @@
 import Card from './Card.vue'
+import CalendarCard from './CalendarCard.vue'
 import JumboTron from './JumboTron.vue'
 import TopNav from './TopNav.vue'
 
 const components = {
+  CalendarCard,
   Card,
   JumboTron,
   TopNav
