@@ -3,7 +3,7 @@ import { getByPath } from '../../../util'
 import Vue from 'vue'
 
 // space to save current el, binding, vnode and ctx
-const state = {}
+const state = { spans: [] }
 
 export default {
   bind(el, binding, vnode) {
@@ -28,11 +28,45 @@ export default {
   }
 }
 
+function addCFButton(child) {
+  // add clear format button
+  let span = document.createElement('span')
+  span.className = 'v-static-clear-format-button'
+  span.innerHTML = '<button class="btn btn-sm" alternate="clear formatting">cF</button>'
+  span.style.float = 'right'
+  child.append(span)
+  span.addEventListener('click', evt => {
+    span.remove()
+    child.focus()
+    child.dataset.oldHTML = child.dataset.oldHTML || child.innerHTML
+    child.innerHTML = clearFormatting(child.innerHTML)
+    addRFButton(child)
+  })
+  state.spans.push(span)
+}
+
+function addRFButton(child) {
+  // add restore format button
+  let span = document.createElement('span')
+  span.className = 'v-static-restore-format-button'
+  span.innerHTML = '<button class="btn btn-sm" alternate="restore formatting">rF</button>'
+  span.style.float = 'right'
+  child.append(span)
+  span.addEventListener('click', evt => {
+    span.remove()
+    child.focus()
+    child.innerHTML = child.dataset.oldHTML
+    addCFButton(child)
+  })
+  state.spans.push(span)
+}
+
 function blurHandler(evt) {
   // don't let them disappear
   if (this.innerText.trim() === '')
     this.innerText = getRandomPlaceHolder()
 
+  // clean html
   let clean = sanitize(this.innerHTML)
 
   // save the data
@@ -65,6 +99,8 @@ function setEditable(el, child, path, binding, vnode, ctx) {
   child.style.borderRadius = '.2em'
   child.dataset.editing    = true
   child.dataset.path       = path
+
+  addCFButton(child)
 
   // save on blur
   child.addEventListener('blur', blurHandler)
@@ -153,10 +189,14 @@ function unsetEditable(child) {
 }
 
 function unsetEditables() {
-  let { el, binding, vnode } = state
+  let { el, binding, vnode, spans } = state
 
   if (!el || !binding || !vnode)
     return
+
+  while (spans.length) {
+    spans.shift().remove()
+  }
 
   for (let selector in binding.value) {
     let path = binding.value[selector]

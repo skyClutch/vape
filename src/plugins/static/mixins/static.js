@@ -6,8 +6,6 @@ import gql from 'graphql-tag'
 export default {
   methods: {
     setStatic(path, value, context = this) {
-      let page = this.$store.state.page
-
       setByPath(context, path, value)
       this.savePageData()
     },

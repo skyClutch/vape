@@ -1,11 +1,13 @@
 import Card from './Card.vue'
 import CalendarCard from './CalendarCard.vue'
+import Clutch from './Clutch.vue'
 import JumboTron from './JumboTron.vue'
 import TopNav from './TopNav.vue'
 
 const components = {
   CalendarCard,
   Card,
+  Clutch,
   JumboTron,
   TopNav
 }

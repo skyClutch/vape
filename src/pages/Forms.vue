@@ -2,6 +2,7 @@
   <div class="row">
     <jumbo-tron :title="title"></jumbo-tron>
     <card v-for="(link, idx) in links"
+      :idx="idx"
       :url="link.path"
       :title="link.title"
       :text="link.text"

@@ -1,5 +1,5 @@
 <template>
-  <div class="col-md-4" v-if="!!path" >
+  <div :class="`col-md-${size}`" v-if="!!path" >
     <router-link :to="path">
         <b-card 
           class="mb-2"
@@ -13,7 +13,7 @@
         </b-card>
     </router-link>
   </div>
-  <div class="col-md-4" v-else-if="!!url">
+  <div :class="`col-md-${size}`" v-else-if="!!url">
     <a :href="url" target="_blank">
         <b-card 
           class="mb-2"
@@ -27,13 +27,36 @@
         </b-card>
     </a>
   </div>
+  <div :class="`col-md-${size} no-link`" v-else-if="!url && !path">
+      <b-card 
+        class="mb-2"
+        :header="header"
+        :footer="footer"
+        :title="title"
+        :sub-title="subTitle"
+        :style="{ background: (idx % 2 === 0 ? '#fff' : '#eee'), color: 'black' }"
+      >
+        <div class="snippet" v-html="text"></div>
+      </b-card>
+  </div>
 </template>
 
 <script>
   export default {
     name: 'card',
 
-    props: ['url', 'idx', 'path', 'header', 'title', 'subTitle', 'footer', 'text', 'img'],
+    props: {
+      idx      : { default: 0, type: Number },
+      path     : String,
+      header   : String,
+      footer   : String,
+      img      : String,
+      size     : { default: "4" },
+      subTitle : String,
+      text     : String,
+      title    : String,
+      url      : String
+    },
 
     methods: {
       snippet: body => body && body.replace(/<[^>]+>/g, '').slice(0, 150) + '...'
@@ -41,20 +64,27 @@
   }
 </script>
 
-<style lang="scss">
-.card {
-  border: none;
-  border-radius: 0;
-  opacity: 0.7;
-  color: white;
-  height: 100%;
-  min-height: 200px;
-  cursor: pointer;
-}
+<style lang="stylus">
+  .card
+    border none
+    border-radius 0
+    opacity 0.7
+    color white
+    height 100%
+    min-height 200px
+    margin-bottom 0px !important
 
-.card:hover {
-  background: #666 !important;
-  color: white !important;
-  opacity: 0.8;
-}
+  .card:hover
+    background #666 !important
+    color white !important
+    opacity 0.8
+
+  .col-md-8
+    padding 0px
+
+  .no-link
+    .card:hover
+      background #eee !important
+      color: black !important
+      opacity: 0.7
 </style>
