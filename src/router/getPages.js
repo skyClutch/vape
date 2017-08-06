@@ -42,9 +42,9 @@ export default function (store) {
         store.commit('SET_PAGE', { page })
 
         pageFile.data = function () {
-          let page = store.state.page
           page.data = Object.assign({}, pageData.call(this), page.data)
           store.commit('SET_PAGE', { page })
+          store.commit('SET_CURRENT_PAGE', { page })
           return page.data
         }
 

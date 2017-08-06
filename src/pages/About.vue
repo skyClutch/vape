@@ -7,7 +7,7 @@
       :title="page.data.title"
       :sub-title="page.data.subTitle"
       :idx="idx"
-      v-static="{ '.card-title': 'title', '.snippet': 'text', list: children, ctx: page.data }"
+      v-static="{ '.card-title': 'title', '.snippet': 'body', list: children, ctx: page.data }"
     ></card>
     <list-control list="children" :blueprint="{ data: { title: 'title', body: 'card body' } }"></list-control>
   </div>
