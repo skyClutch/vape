@@ -33,8 +33,7 @@ function addCFButton(child) {
   let span = document.createElement('span')
   span.className = 'v-static-clear-format-button'
   span.innerHTML = '<button class="btn btn-sm" alternate="clear formatting">cF</button>'
-  span.style.float = 'right'
-  child.append(span)
+  child.parentNode.insertBefore(span, child.nextSibling)
   span.addEventListener('click', evt => {
     span.remove()
     child.focus()
@@ -50,8 +49,7 @@ function addRFButton(child) {
   let span = document.createElement('span')
   span.className = 'v-static-restore-format-button'
   span.innerHTML = '<button class="btn btn-sm" alternate="restore formatting">rF</button>'
-  span.style.float = 'right'
-  child.append(span)
+  child.parentNode.insertBefore(span, child.nextSibling)
   span.addEventListener('click', evt => {
     span.remove()
     child.focus()

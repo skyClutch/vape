@@ -36,7 +36,7 @@ export default function (store) {
         let pageData = pageFile.data
 
         page.data.route = route
-        page.data.children = pages.filter(p => p.parentId === page.id)
+        page.data.childPages = pages.filter(p => p.parentId === page.id)
         page.path = route
 
         store.commit('SET_PAGE', { page })
