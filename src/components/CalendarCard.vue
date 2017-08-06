@@ -44,7 +44,7 @@
       return {
         fields: {
           summary: {
-            label: 'Calendar'
+            label: 'Agenda'
           },
 
           date:{
@@ -76,7 +76,9 @@
 
 <style scoped lang="stylus">
   .card
-    max-height 400px
+    border-radius 0px
+    border none
+    max-height 600px
     background #eee !important
     overflow auto
 

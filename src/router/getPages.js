@@ -17,8 +17,8 @@ export default function (store) {
   .then(result => {
     try {
       let pages = result.data.allPages.edges.map(edge => {
-        let page = edge.node
-        let data = {}
+      let page = edge.node
+      let data = {}
 
         try {
           data = JSON.parse(page.data)

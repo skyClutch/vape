@@ -1,0 +1,2 @@
+insert into pta_dist_14.page (author_id, route, title, template, data, parent_id) values
+  (1, 'calendar', 'Calendar', $$  <div class="row">    <jumbo-tron :title="title"></jumbo-tron>    <card v-for="(page, idx) in $store.state.page.data.children" :key="page.id"      v-bind:path="page.data.route"      v-bind:text="page.data.body"      v-bind:img="page.data.img"      v-bind:title="page.data.title"      v-bind:sub-title="page.data.subTitle"      v-bind:idx="idx"    ></card>  </div>$$, '{"title":"Calendar","body":"here have have a calendar"}', null)
