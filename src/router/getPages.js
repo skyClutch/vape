@@ -42,8 +42,10 @@ export default function (store) {
         store.commit('SET_PAGE', { page })
 
         pageFile.data = function () {
-          console.log(JSON.stringify(store.state.page.data, null, 2))
-          return Object.assign({}, pageData.call(this), store.state.page.data)
+          let page = store.state.page
+          page.data = Object.assign({}, pageData.call(this), page.data)
+          store.commit('SET_PAGE', { page })
+          return page.data
         }
 
         return { 

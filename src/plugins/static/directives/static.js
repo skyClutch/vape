@@ -66,6 +66,9 @@ function blurHandler(evt) {
   if (this.innerText.trim() === '')
     this.innerText = getRandomPlaceHolder()
 
+  while (state.spans.length) {
+    state.spans.shift().remove()
+  }
   // clean html
   let clean = sanitize(this.innerHTML)
 
