@@ -21,7 +21,7 @@ Vue.mixin({
           this[i] = asyncResult[i]
         }
         this.$options.data = function () {
-          const data =  ComponentData.apply(this, arguments)
+          const data =  ComponentData.call(this)
           return Object.assign(data, asyncResult)
         }
         // add data to to cache
@@ -54,9 +54,58 @@ createApp()
   router.onReady(() => {
       app.$mount('#app')
   })
+  
+  // add special hook for pages to resolve syncDataHookComponents
+  // (async data you want all loaded before page resolves)
+  // syncData gets the store and the route
+  router.beforeResolve((to, from, next) => {
+    bar.start()
+    resolveComponents(store, router, to, from)
+    .then(() => {
+      bar.finish()
+      next()
+    })
+    .catch(next)
+  })
 
   // service worker
   if ('https:' === location.protocol && navigator.serviceWorker) {
     navigator.serviceWorker.register('/service-worker.js')
   }
 })
+
+function resolveComponents(store, router, to, from) {
+  const matched = router.getMatchedComponents(to)
+
+  let activated = matched
+  let diffed = false
+
+  if (to && from) {
+    const prevMatched = router.getMatchedComponents(from)
+    const activated = matched.filter((c, i) => {
+      return diffed || (diffed = (prevMatched[i] !== c))
+    })
+  }
+
+  const syncDataHookComponents = activated.filter(c => !!c.syncData)
+  if (!syncDataHookComponents.length) {
+    return Promise.resolve(null)
+  }
+
+  return Promise.all(syncDataHookComponents.map(Component => {
+    const ComponentData = Component.data || (() => ({}))
+    const syncData = Component.syncData
+
+    return syncData({ store, route: to })
+    .then(syncResult => {
+      Component.data = function () {
+        const data =  ComponentData.call(this)
+        return Object.assign(data, syncResult)
+      }
+      if (Component._Ctor && Component._Ctor[0] && Component._Ctor[0].options) {
+        Component._Ctor[0].options.data = Component.data
+      }
+      return null
+    })
+  }))
+}
