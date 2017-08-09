@@ -17,7 +17,5 @@ function createApolloClient() {
       uri: `${APP_URL}/graphql`,
   })
 
-	console.log('making new client')
-
   return new ApolloClient({ networkInterface })
 }

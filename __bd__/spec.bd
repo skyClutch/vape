@@ -25,11 +25,17 @@ Vape is awesome
 ### frontend
 
 - fix double load of asyncData
-  - prob in extry file
+  - prob in entry file
 
 ### backend
 
 - finish auth
+  - add auth endpoint
+    - set cookie with token
+    - add middleware to copy token from cookie to auth header
+  - add login/signup page
+    - add verification/reset workflow
+    - add verification step for admin
 - extend api
 - add acl
   - must provide utility for extensions to use auth/acl
