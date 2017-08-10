@@ -28,7 +28,9 @@
           fullName
         } }`
       })
-      .then(result => console.log(result.data))
+      .then(result => {
+        this.$store.commit('SET_CURRENT_USER', { user: result.data.currentPerson })
+      })
     }
   }
 </script>

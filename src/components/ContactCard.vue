@@ -1,5 +1,5 @@
 <template>
-  <div class="col-md-4 form-wrapper">
+  <div class="col-md-8 form-wrapper">
     <b-card
        title="Contact Us"
        class="mb-2"

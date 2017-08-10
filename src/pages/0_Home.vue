@@ -13,7 +13,7 @@
        :text="announcements.text"
        size="4"
        v-static="{ '.snippet': 'text', '.card-title': 'title', ctx: announcements }"
-       :idx="0"
+       :idx="1"
        ></card>
     <contact-card></contact-card>
   </div>  

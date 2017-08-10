@@ -17,11 +17,11 @@
 					</b-nav>
 
 				</b-collapse>
-        <b-link href="https://twitter.com" target="_blank" right>
-          <img src="/public/social-twitter.png" class="social-icon"/>
-        </b-link>
-        <b-button v-if="!editing" @click="toggleEditable" variant="danger">edit</b-button>
-        <b-button v-if="editing" @click="toggleEditable" variant="success">stop edit</b-button>
+        <!-- <b-link href="https://twitter.com" target="_blank" right> -->
+        <!--   <img src="/public/social-twitter.png" class="social-icon"/> -->
+        <!-- </b-link> -->
+        <b-button v-if="!!currentUser && !editing" @click="toggleEditable" variant="danger">edit</b-button>
+        <b-button v-if="!!currentUser && editing" @click="toggleEditable" variant="success">stop edit</b-button>
 		</b-navbar>
   </header>
 </template>
@@ -31,6 +31,10 @@
     name: 'top-nav',
 
     computed: {
+      currentUser() {
+        return this.$store.state.currentUser
+      },
+
       editing() {
         return this.$store.state.editing
       }

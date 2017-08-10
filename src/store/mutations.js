@@ -34,6 +34,10 @@ export default {
     Vue.set(state, 'page', page)
   },
 
+  SET_CURRENT_USER: (state, { user }) => {
+    Vue.set(state, 'currentUser', user)
+  },
+
   SET_USER: (state, { id, user }) => {
     Vue.set(state.users, id, user || false) /* false means user not found */
   }

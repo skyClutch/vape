@@ -10,6 +10,7 @@ export function createStore () {
   return new Vuex.Store({
     state: {
       activeType: null,
+      currentUser: null,
       editing: false,
       itemsPerPage: 20,
       items: {/* [id: number]: Item */},
