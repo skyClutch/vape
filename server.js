@@ -8,6 +8,7 @@ const postgraphql = require('postgraphql').postgraphql
 const config = require('./src/server/config')
 const resolve = file => path.resolve(__dirname, file)
 const { createBundleRenderer } = require('vue-server-renderer')
+const bodyParser = require('body-parser')
 
 const isProd = process.env.NODE_ENV === 'production'
 const useMicroCache = process.env.MICRO_CACHE !== 'false'
@@ -137,6 +138,8 @@ app.use(postgraphql(config.PSQL_URI, config.PSQL_SCHEMA, {
   jwtSecret: config.PSQL_SECRET, 
   jwtPgTypeIdentifier: config.PSQL_SCHEMA + '.jwt_token'
 }))
+
+app.use(bodyParser.json())
 
 app.post('/mail', simpleMailer)
 

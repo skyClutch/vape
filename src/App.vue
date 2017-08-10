@@ -11,15 +11,26 @@
 </template>
 
 <script>
-export default {
-  name: 'app',
-  mounted() {
-    setTimeout(_ => {
-      var bg = `/public/bg/${Math.floor(Math.random() * 6) + 1}.jpg`
-      document.getElementsByTagName('body')[0].style.backgroundImage = `url(${bg})`
-    }, 500)
+  import apollo from './lib/ApolloClient'
+  import gql from 'graphql-tag'
+
+  export default {
+    name: 'app',
+    mounted() {
+      setTimeout(_ => {
+        var bg = `/public/bg/${Math.floor(Math.random() * 6) + 1}.jpg`
+        document.getElementsByTagName('body')[0].style.backgroundImage = `url(${bg})`
+      }, 500)
+
+      return apollo().query({
+        query: gql`{ currentPerson {
+          id
+          fullName
+        } }`
+      })
+      .then(result => console.log(result.data))
+    }
   }
-}
 </script>
 
 <style lang="stylus">

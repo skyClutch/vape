@@ -7,15 +7,16 @@
        size="8"
        v-static="{ '.snippet': 'text', '.card-title': 'title', ctx: welcome }"
        :idx="0"
-    ></card>
+       ></card>
     <card 
        :title="announcements.title"
        :text="announcements.text"
        size="4"
        v-static="{ '.snippet': 'text', '.card-title': 'title', ctx: announcements }"
        :idx="0"
-    ></card>
-  </div>
+       ></card>
+    <contact-card></contact-card>
+  </div>  
 </template>
 
 <script>

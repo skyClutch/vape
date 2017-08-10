@@ -10,13 +10,18 @@ const transporter = nodemailer.createTransport({
   }
 })
 
-const mailOptions = {
-  to: 'john.fellman@gmail.com',
-  subject: 'Sending Email using Node.js',
-  text: 'That was easy!'
-};
-
 module.exports = function (req, res, next) {
+  const mailOptions = {
+    to: config.GMAIL_USERNAME,
+    subject: 'Website Contact Form',
+    text: `
+      name: ${req.body.name}
+      email: ${req.body.email}
+      message: 
+        ${req.body.message}
+      `
+  }
+
   transporter.sendMail(mailOptions, function(error, info){
     if (error) {
       console.log(error)
