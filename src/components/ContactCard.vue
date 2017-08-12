@@ -1,10 +1,10 @@
 <template>
-  <div class="col-md-8 form-wrapper">
+  <div class="col-md-8">
     <b-card
        title="Contact Us"
        class="mb-2"
        >
-     <b-alert dismissable variant="danger" v-for="error in errors" :show="!!errors.length">
+     <b-alert dismissable variant="danger" v-for="error in errors" :key="error" :show="!!errors.length">
        {{error}}
      </b-alert>
      <b-alert dismissable variant="success" :show="!!success">
@@ -82,6 +82,10 @@
 </script>
 
 <style scoped lang="stylus">
+  .col-md-8
+    padding-left 0px !important
+    padding-right 0px !important
+
   .card
     border-radius 0px
     border none

@@ -31,6 +31,7 @@
 
       return axios.get(calendarApi)
       .then(result => {
+        console.log(result)
         return {
           items: result.data.items
         }
@@ -81,9 +82,10 @@
     max-height 600px
     background #eee !important
     overflow auto
+    opacity: 0.8
 
   .card:hover
     background #eee !important
     color: black !important
-    opacity: 0.7
+    opacity: 0.9
 </style>

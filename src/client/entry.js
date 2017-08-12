@@ -8,6 +8,7 @@ import { staticPlugin } from '../plugins'
 const bar = Vue.prototype.$bar = new Vue(ProgressBar).$mount()
 document.body.appendChild(bar.$el)
 
+// TODO move to plugins
 // a global mixin that calls `asyncData` when a route component's params change
 Vue.mixin({
   beforeMount () {
@@ -52,9 +53,10 @@ createApp()
   // wait until router has resolved all async before hooks
   // and async components...
   router.onReady(() => {
+    console.log('app mount');
       app.$mount('#app')
   })
-  
+
   // add special hook for pages to resolve syncDataHookComponents
   // (async data you want all loaded before page resolves)
   // syncData gets the store and the route

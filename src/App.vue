@@ -17,10 +17,12 @@
   export default {
     name: 'app',
     mounted() {
-      setTimeout(_ => {
-        var bg = `/public/bg/${Math.floor(Math.random() * 6) + 1}.jpg`
-        document.getElementsByTagName('body')[0].style.backgroundImage = `url(${bg})`
-      }, 500)
+      if (typeof(document) !== undefined) {
+        setTimeout(_ => {
+          var bg = `/public/bg/${Math.floor(Math.random() * 6) + 1}.jpg`
+          document.getElementsByTagName('body')[0].style.backgroundImage = `url(${bg})`
+        }, 1000)
+      }
 
       return apollo().query({
         query: gql`{ currentPerson {

@@ -64,7 +64,7 @@
   }
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
   .card
     border none
     border-radius 0
@@ -86,5 +86,5 @@
     .card:hover
       background #eee !important
       color: black !important
-      opacity: 0.7
+      opacity: 0.8
 </style>
