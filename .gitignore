@@ -8,3 +8,6 @@ src/client/config.js
 .idea
 *.iml
 *.swp
+*.swo
+vape.sql
+vape.pem
