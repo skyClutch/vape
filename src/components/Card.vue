@@ -1,5 +1,5 @@
 <template>
-  <div :class="`col-md-${size}`" v-if="!!path" >
+  <div style="overflow-x: hidden;" :class="`col-md-${size}`" v-if="!!path" >
     <router-link :to="path">
         <b-card 
           class="mb-2"
@@ -13,7 +13,7 @@
         </b-card>
     </router-link>
   </div>
-  <div :class="`col-md-${size}`" v-else-if="!!url">
+  <div  style="overflow-x: hidden;" :class="`col-md-${size}`" v-else-if="!!url">
     <a :href="url" target="_blank">
         <b-card 
           class="mb-2"
@@ -27,7 +27,7 @@
         </b-card>
     </a>
   </div>
-  <div :class="`col-md-${size} no-link`" v-else-if="!url && !path">
+  <div  style="overflow-x: hidden;" :class="`col-md-${size} no-link`" v-else-if="!url && !path">
       <b-card 
         class="mb-2"
         :header="header"
