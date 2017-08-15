@@ -20,6 +20,7 @@
         <!-- <b-link href="https://twitter.com" target="_blank" right> -->
         <!--   <img src="/public/social-twitter.png" class="social-icon"/> -->
         <!-- </b-link> -->
+        <b-button v-if="!!currentUser" @click="logout">logout</b-button>
         <b-button v-if="!!currentUser && !editing" @click="toggleEditable" variant="danger">edit</b-button>
         <b-button v-if="!!currentUser && editing" @click="toggleEditable" variant="success">stop edit</b-button>
 		</b-navbar>
@@ -41,6 +42,11 @@
     },
 
     methods: {
+      logout() {
+        localStorage.removeItem('authToken')
+        window.location.pathname = ''
+      },
+
       toggleEditable() {
         this.$set(this.$store.state, 'editing', !this.$store.state.editing)
       },
