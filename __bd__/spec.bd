@@ -39,3 +39,20 @@ Vape is awesome
 - extend api
 - add acl
   - must provide utility for extensions to use auth/acl
+
+
+### possible ssr solution
+```
+if (!process.BROWSER_BUILD) {
+  const jsdom = require('jsdom')
+    const { JSDOM } = jsdom
+    const dom = new JSDOM(``)
+    global.window = dom.window
+    global.document = dom.window.document
+    global.Element = dom.window.Element
+}
+
+var Vue = require('vue')
+var VueMaterial = require('vue-material')
+Vue.use(VueMaterial)
+```

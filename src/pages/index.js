@@ -3,6 +3,7 @@ import About from './About.vue'
 import Board from './Board.vue'
 import Calendar from './Calendar.vue'
 import Forms from './Forms.vue'
+import Login from './Login.vue'
 import Join from './Join.vue'
 import MissionStatement from './MissionStatement.vue'
 import Programs from './Programs.vue'
@@ -16,6 +17,7 @@ export default {
   Calendar,
   Forms,
   Join,
+  Login,
   MissionStatement,
   Programs,
   Units,
