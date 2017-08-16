@@ -1,4 +1,4 @@
-const config = require('../src/server/config')
+const config = require('../config/server')
 
 const nodemailer = require('nodemailer')
 

@@ -1,5 +1,5 @@
-import setByPath from '../../../util/setByPath'
-import deleteByPath from '../../../util/deleteByPath'
+import setByPath from '../../../lib/util/setByPath'
+import deleteByPath from '../../../lib/util/deleteByPath'
 import apollo from '../../../lib/ApolloClient'
 import gql from 'graphql-tag'
 

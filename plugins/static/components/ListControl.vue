@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { getByPath } from '../../../util'
+import { getByPath } from '../../../lib/util'
 
   export default {
     computed: {
