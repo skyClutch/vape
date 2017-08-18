@@ -1,5 +1,6 @@
 forms
 forms export
+init
 migrate
 migrate add
 migrate run
