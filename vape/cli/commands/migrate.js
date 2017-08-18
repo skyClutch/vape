@@ -3,7 +3,7 @@ const fwf     = require('fun_with_flags')
 const pg      = require('pg')
 const migrate = require('pgmigrate')
 const pgConnectionString = require('pg-connection-string')
-const config = require('../../src/server/config')
+const config = require('../../../config/server')
 
 module.exports = {
   add: {

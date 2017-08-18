@@ -1,7 +1,7 @@
 const fs = require('fs')
 const values = []
 const fwf = require('fun_with_flags')
-const config = require('../../src/server/config')
+const config = require('../../../config/server')
 
 module.exports = {
   dump: {

@@ -3,8 +3,6 @@ node_modules/
 dist/
 npm-debug.log
 yarn-error.log
-src/server/config.js
-src/client/config.js
 .idea
 *.iml
 *.swp
