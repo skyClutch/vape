@@ -17,7 +17,7 @@
 </template>
 
 <script>
-  import apollo from '../lib/ApolloClient'
+  import apollo from '../vape/ApolloClient'
   import gql from 'graphql-tag'
 
   export default {

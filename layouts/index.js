@@ -3,8 +3,8 @@
   Remove these lines or add custom file to override builder
 */
 
-import staticPlugin from './staticPlugin'
+import Default from './Default.vue'
 
 export default {
-  staticPlugin,
+  Default,
 }

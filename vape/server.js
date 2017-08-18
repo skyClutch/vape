@@ -1,18 +1,18 @@
-const fs = require('fs')
-const path = require('path')
-const LRU = require('lru-cache')
-const express = require('express')
-const favicon = require('serve-favicon')
-const compression = require('compression')
-const postgraphql = require('postgraphql').postgraphql
-const config = require('../config/server')
-const resolve = file => path.resolve(__dirname, file)
+const fs                       = require('fs')
+const path                     = require('path')
+const LRU                      = require('lru-cache')
+const express                  = require('express')
+const favicon                  = require('serve-favicon')
+const compression              = require('compression')
+const postgraphql              = require('postgraphql').postgraphql
+const config                   = require('../config/server')
+const resolve                  = file => path.resolve(__dirname, file)
 const { createBundleRenderer } = require('vue-server-renderer')
-const bodyParser = require('body-parser')
+const bodyParser               = require('body-parser')
 
-const isProd = process.env.NODE_ENV === 'production'
+const isProd        = process.env.NODE_ENV === 'production'
 const useMicroCache = process.env.MICRO_CACHE !== 'false'
-const serverInfo =
+const serverInfo    =
   `express/${require('express/package.json').version} ` +
   `vue-server-renderer/${require('vue-server-renderer/package.json').version}`
 
@@ -20,7 +20,7 @@ const app = express()
 
 const template = fs.readFileSync(resolve('../index.template.html'), 'utf-8')
 
-const simpleMailer = require('../extensions').simpleMailClient
+const simpleMailer = require('../extensions/simpleMailClient')
 
 function createRenderer (bundle, options) {
   // https://github.com/vuejs/vue/blob/dev/packages/vue-server-renderer/README.md#why-use-bundlerenderer
@@ -116,7 +116,7 @@ function render (req, res) {
   }
 
   const context = {
-    title: 'PTA District 14', // default title
+    title: config.APP_TITLE, // default title
     url: req.url
   }
   renderer.renderToString(context, (err, html) => {
@@ -148,7 +148,6 @@ app.post('/mail', simpleMailer)
 app.get('*', isProd ? render : (req, res) => {
   readyPromise.then(() => render(req, res))
 })
-
 
 const port = process.env.PORT || 8080
 app.listen(port, () => {

@@ -12,8 +12,6 @@ import JumboTron from './JumboTron.vue'
 import ProgressBar from './ProgressBar.vue'
 import Spinner from './Spinner.vue'
 import TopNav from './TopNav.vue'
-import index from './index.js'
-import  from './subfolder'
 
 export default {
   CalendarCard,
@@ -25,6 +23,4 @@ export default {
   ProgressBar,
   Spinner,
   TopNav,
-  index,
-  ,
 }

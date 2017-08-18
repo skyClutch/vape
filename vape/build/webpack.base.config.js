@@ -79,7 +79,13 @@ module.exports = {
         new ExtractTextPlugin({
           filename: 'common.[chunkhash].css'
         }),
-        new ModuleBuilder({ folders: ['./components'] })
+        new ModuleBuilder({ folders: [
+          './components',
+          './extensions',
+          './layouts',
+          './plugins',
+          './templates',
+        ] })
       ]
     : [
         new FriendlyErrorsPlugin()

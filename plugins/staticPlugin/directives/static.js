@@ -1,5 +1,5 @@
 import { sanitize, clearFormatting } from '../util'
-import { getByPath } from '../../../lib/util'
+import { getByPath } from '../../../vape/util'
 import Vue from 'vue'
 
 // space to save current el, binding, vnode and ctx

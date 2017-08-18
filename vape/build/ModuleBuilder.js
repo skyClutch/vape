@@ -1,7 +1,5 @@
 const path = require('path')
 const fs   = require('fs')
-const now  = Date.now() / 1000
-const then = now - 10
 
 function ModuleBuilder({ hook, folders }) {
   this.folders = folders
@@ -102,7 +100,9 @@ function build(folder) {
           return rej(err)
 
         // hack that backdate files to block infinite watch/build loop
-        let f = path.resolve(`${folder}/index.js`)
+        let f    = path.resolve(`${folder}/index.js`)
+        let now  = Date.now() / 1000
+        let then = now - 100000
         fs.utimes(f, then, then, function (err) { 
           if (err)
             throw err 

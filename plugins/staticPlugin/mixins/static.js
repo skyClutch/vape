@@ -1,6 +1,6 @@
-import setByPath from '../../../lib/util/setByPath'
-import deleteByPath from '../../../lib/util/deleteByPath'
-import apollo from '../../../lib/ApolloClient'
+import setByPath from '../../../vape/util/setByPath'
+import deleteByPath from '../../../vape/util/deleteByPath'
+import apollo from '../../../vape/ApolloClient'
 import gql from 'graphql-tag'
 
 export default {

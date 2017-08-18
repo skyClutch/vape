@@ -59,7 +59,7 @@
 </script>
 
 <style lang="stylus" scoped>
-@import '../style/custom.styl'
+@import '../styles/stylus/custom.styl'
 
 li
   list-style none

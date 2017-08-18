@@ -11,7 +11,7 @@
 </template>
 
 <script>
-  import apollo from '../lib/ApolloClient'
+  import apollo from '../vape/ApolloClient'
   import gql from 'graphql-tag'
 
   export default {
@@ -38,7 +38,7 @@
 </script>
 
 <style lang="stylus">
-@import '../style/custom.styl'
+@import '../styles/stylus/custom.styl'
 html, body
   height 100%
 

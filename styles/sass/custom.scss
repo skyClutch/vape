@@ -1,7 +1,12 @@
-@import '../node_modules/bootstrap/scss/_variables.scss';
+// import bootstrap vars
+@import '../../node_modules/bootstrap/scss/_variables.scss';
+
 // custom bootstrap goes here
 $brand-info: #41577d;
-@import '../node_modules/bootstrap/scss/bootstrap.scss';
+
+// import the rest of bootstrap
+@import '../../node_modules/bootstrap/scss/bootstrap.scss';
+
 .row {
   .col-md-4 {
     padding: 0px;

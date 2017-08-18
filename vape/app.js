@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import App from '../layouts/Default.vue'
+import DefaultLayout from '../layouts/Default.vue'
 import { createStore } from './store'
 import { createRouter } from './router'
 import { sync } from 'vuex-router-sync'
@@ -17,18 +17,18 @@ const Components = {
     Vue._custom_components_installed = true;
 
     // Register components
-    for (var component in components) {
+    for (let component in components) {
       Vue.component(component, components[component])
     }
   }
 }
 Vue.use(Components)
 
-// add bootstrap css framework
-import BootstrapVue from 'bootstrap-vue'
-import '../style/custom.scss'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
-Vue.use(BootstrapVue)
+// add styles
+import '../styles'
+
+// add vendor js
+import '../vendor'
 
 // mixin for handling title
 Vue.mixin(titleMixin)
@@ -57,7 +57,7 @@ export function createApp () {
     const app = new Vue({
       router,
       store,
-      render: h => h(App)
+      render: h => h(DefaultLayout)
     })
 
     router.beforeEach((to, from, next) => {

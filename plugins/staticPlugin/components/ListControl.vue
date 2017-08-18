@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { getByPath } from '../../../lib/util'
+import { getByPath } from '../../../vape/util'
 
   export default {
     computed: {
