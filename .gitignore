@@ -8,5 +8,7 @@ yarn-error.log
 *.iml
 *.swp
 *.swo
+schema/2017-06-16T07:07:30.523Z-auth.sql
+schema/2017-08-10T04:23:24.855Z-create-admin.sql
 vape.sql
 vape.pem
