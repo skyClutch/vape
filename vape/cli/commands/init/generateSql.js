@@ -1,27 +1,48 @@
 const fwf     = require('fun_with_flags')
 const fs      = require('fs')
 const sedFile = require('../../util/sedFile')
+const crypto  = require('crypto')
 
 module.exports = function (props) {
   // make sure config reloads
   delete require.cache[require.resolve('../../../../config/server')]
   const config = require('../../../../config/server')
+  const adminDefaultPassword = crypto.randomBytes(20).toString('hex')
 
-  return fwf.shell('clear')
-  .then(() => {
-    console.log(`
+  console.log(`
 Now we need to generate your initial db schema. We will register you as an admin user as well.
     `);
     
-    return fwf.prompt([
-      'ADMIN_FIRST_NAME', 
-      'ADMIN_LAST_NAME', 
-      'ADMIN_EMAIL', 
-      'ADMIN_PASSWORD', 
-    ])
-  })
+  return fwf.prompt([
+    {
+      name: 'ADMIN_FIRST_NAME', 
+      message: 'Please enter your first name'
+    },
+    {
+      name: 'ADMIN_LAST_NAME', 
+      message: 'Please enter your last name'
+    },
+    {
+      name: 'ADMIN_EMAIL', 
+      message: 'Please enter your email',
+      default: props.INSECURE_GMAIL_USERNAME
+    },
+    {
+      name: 'ADMIN_PASSWORD', 
+      message: 'Enter a password for logging into your application if you wish, or hit enter to have a secure password generated for you',
+      default: adminDefaultPassword,
+      hidden: true
+    }
+  ])
+
+  // get default schema files
   .then(result => {
     Object.assign(props, result, config)
+
+    // log out generated password if used
+    if (props.ADMIN_PASSWORD === adminDefaultPassword)
+      console.log('Your application password is: ', props.ADMIN_PASSWORD)
+
     return new Promise((resolve, reject) => {
       fs.readdir('./vape/default-schema/', (err, files) => {
         if (err)
@@ -31,6 +52,8 @@ Now we need to generate your initial db schema. We will register you as an admin
       })
     })
   })
+
+  // copy and replace keys
   .then(({ files, props }) => {
     return Promise.all(files.map(file => {
       return sedFile(props, './vape/default-schema/'+file, './schema/'+file)

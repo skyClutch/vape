@@ -38,7 +38,7 @@ comment on function jff.register_person(text, text, text, text) is 'Registers a 
 
 -- create some roles
 drop role if exists jff_postgraphql;
-create role jff_postgraphql login password 'starwars';
+create role jff_postgraphql login password '49a00d7ad6cc43aa0f42c877c5b2353095db63a8';
 
 drop role if exists jff_anonymous;
 create role jff_anonymous;
