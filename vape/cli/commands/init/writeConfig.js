@@ -1,5 +1,6 @@
-const fwf         = require('fun_with_flags')
-const fs          = require('fs')
+const fwf     = require('fun_with_flags')
+const fs      = require('fs')
+const sedFile = require('../../util/sedFile')
 
 module.exports = function (target) {
   const props = {}
@@ -86,49 +87,12 @@ You need a good name for your schema, as well as good usernames and passwords fo
     Object.assign(props, result)
     return props
   })
-  // remove existing config
-  .then(props => {
-    return new Promise((resolve, reject) => {
-      try {
-        fs.unlink('./config/server.js', err => {
-          resolve(props)
-        })
-      } 
-      catch (err) {
-        console.log(err)
-        resolve(props)
-      }
-        
-    })
-  })
   // replace values from default config
   .then(props => {
-    return new Promise((resolve, reject) => {
-      fs.readFile('./vape/default-config/server.js', (err, data) => {
-        if (err)
-          return reject(err)
-
-        data = data.toString()
-
-        for (let name in props) {
-          let value = props[name]
-          data = data.replace(new RegExp(`%${name}%`, 'gm'), value)
-        }
-
-        resolve(data)
-      })
-    })
-  })
-  // write file
-  .then(data => {
-    return new Promise((resolve, reject) => {
-      fs.writeFile('./config/server.js', data, err => {
-        if (err)
-          console.error(err)
-      })
-    })
+    return sedFile(props, './vape/default-config/server.js', './config/server.js')
   })
   .then(() => {
-    return 'Your config has been written (see config/server.js)'
+    console.log('Your config has been written (see config/server.js)')
+    return props;
   })
 }

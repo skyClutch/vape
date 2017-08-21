@@ -1,24 +1,26 @@
 import apollo from '../ApolloClient'
 import gql from 'graphql-tag'
 import Vue from 'vue'
-import pageFiles from '../../templates'
+import templateFiles from '../../templates'
 
 export default function (store) {
+  // tet pages from the db
   return apollo().query({
     query: gql`{ allPages { edges { node {
             id
-            parentId
+            name
             route
-            title
             template
             data
     } } } }` 
   })
+
+  // get template for each page
   .then(result => {
     try {
       let pages = result.data.allPages.edges.map(edge => {
-      let page = edge.node
-      let data = {}
+        let page = edge.node
+        let data = {}
 
         try {
           data = JSON.parse(page.data)
@@ -29,42 +31,33 @@ export default function (store) {
 
         return Object.assign({}, page, { data })
       })
-
-      return pages.map(page => {
-        let route = getRoute(page, pages)
-        let pageFile = Object.values(pageFiles).find(pF => pF.name === page.route)
-        let pageData = pageFile.data
-
-        page.data.route = route
-        page.data.childPages = pages.filter(p => p.parentId === page.id)
-        page.path = route
-
-        store.commit('SET_PAGE', { page })
-
-        pageFile.data = function () {
-          page.data = Object.assign({}, pageData.call(this), page.data)
-          store.commit('SET_PAGE', { page })
-          store.commit('SET_CURRENT_PAGE', { page })
-          return page.data
-        }
-
-        return { 
-          path: route,
-          component: pageFile,
-        }
-      })
     } catch (e) {
       console.error(e)
-      return []
+      let pages = []
     }
+
+    return pages
   })
-}
+  
+  // fixup data function and return route for router with page component
+  .then(pages => {
+    return pages.map(page => {
+      let templateFile = Object.values(templateFiles).find(templateFile => templateFile.name === page.template)
+      let pageData = templateFile.data
 
-function getRoute(page, pages) {
-  if (!page.parentId)
-    return `/${page.route}`
+      store.commit('SET_PAGE', { page })
 
-  let parentPage = pages.find(p => p.id === page.parentId)
+      templateFile.data = function () {
+        page.data = Object.assign({}, pageData.call(this), page.data)
+        store.commit('SET_PAGE', { page })
+        store.commit('SET_CURRENT_PAGE', { page })
+        return page.data
+      }
 
-  return `${getRoute(parentPage, pages)}/${page.route}`
+      return { 
+        path      : page.route,
+        component : templateFile
+      }
+    })
+  })
 }
