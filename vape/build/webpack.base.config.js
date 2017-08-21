@@ -1,6 +1,6 @@
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
-const ModuleBuilder = require('./ModuleBuilder')
+const ModuleBuilder = require('./webpack-plugins/ModuleBuilder')
 const path = require('path')
 const vueConfig = require('./vue-loader.config')
 const webpack = require('webpack')

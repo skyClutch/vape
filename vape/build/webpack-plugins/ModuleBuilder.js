@@ -29,7 +29,7 @@ function build(folder) {
   return new Promise((res, rej) => {
     fs.readFile(`${folder}/index.js`, (err, data) => {
       if (!err && !/^\/\* ModuleBuilder/.test(data))
-        return rej('Index File Exists')
+        return rej(folder + ' Index File Exists')
       res()
     })
   })

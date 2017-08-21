@@ -19,6 +19,7 @@
   "dependencies": {
     "apollo-client": "^1.8.0",
     "axios": "^0.16.2",
+    "babel-jest": "^20.0.3",
     "body-parser": "^1.17.2",
     "bootstrap-vue": "^0.18.0",
     "compression": "^1.6.2",
@@ -31,6 +32,7 @@
     "graphql-tag": "^2.4.2",
     "isomorphic-fetch": "^2.2.1",
     "jest": "^20.0.4",
+    "jest-vue-preprocessor": "^1.1.0",
     "lru-cache": "^4.0.2",
     "mock-fs": "^4.4.1",
     "nodemailer": "^4.0.1",
@@ -39,9 +41,9 @@
     "sanitize-html": "^1.14.1",
     "serve-favicon": "^2.4.3",
     "style-loader": "^0.18.2",
-    "vue": "^2.3.2",
+    "vue": "^2.4.2",
     "vue-router": "^2.5.0",
-    "vue-server-renderer": "^2.3.2",
+    "vue-server-renderer": "^2.4.2",
     "vuex": "^2.3.1",
     "vuex-router-sync": "^4.1.2"
   },
@@ -70,5 +72,15 @@
     "webpack-hot-middleware": "^2.17.1",
     "webpack-merge": "^4.0.0",
     "webpack-node-externals": "^1.5.4"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "vue"
+    ],
+    "transform": {
+      "^.+\\.js$": "babel-jest",
+      ".*\\.(vue)$": "<rootDir>/node_modules/jest-vue-preprocessor"
+    }
   }
 }

@@ -3,7 +3,7 @@ const webpack = require('webpack')
 const MFS = require('memory-fs')
 const clientConfig = require('./webpack.client.config')
 const serverConfig = require('./webpack.server.config')
-const ModuleBuilder = require('./ModuleBuilder')
+const ModuleBuilder = require('./webpack-plugins/ModuleBuilder')
 
 const readFile = (fs, file) => {
   try {

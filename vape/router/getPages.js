@@ -17,8 +17,10 @@ export default function (store) {
 
   // get template for each page
   .then(result => {
+    let pages = []
+
     try {
-      let pages = result.data.allPages.edges.map(edge => {
+      pages = result.data.allPages.edges.map(edge => {
         let page = edge.node
         let data = {}
 
@@ -33,7 +35,6 @@ export default function (store) {
       })
     } catch (e) {
       console.error(e)
-      let pages = []
     }
 
     return pages

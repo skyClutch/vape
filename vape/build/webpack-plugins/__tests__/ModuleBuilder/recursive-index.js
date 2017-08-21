@@ -12,7 +12,7 @@ mock({
   }
 })
 
-test('Builder should include subfolders', done => {
+test('ModuleBuilder should include subfolders', done => {
   // mock the compiler with function that restores fs and calls done
   const compiler = {
     plugin: jest.fn((hook, callback) => {

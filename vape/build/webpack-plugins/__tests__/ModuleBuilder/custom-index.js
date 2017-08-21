@@ -1,24 +1,26 @@
 const ModuleBuilder = require('../../ModuleBuilder')
 const mock          = require('mock-fs')
 const fs            = require('fs')
+const customIndex   = '/* custom index not built by ModuleBuilder */'
 
 mock({
   components: {
     'Nav.vue'    : '<template><nav></nav></template>',
-    'Footer.vue' : '<template><foot></foot></template>'
+    'Footer.vue' : '<template><foot></foot></template>',
+    'index.js'   : customIndex
   }
 })
 
-test('Builder should add index file to folder without one', done => {
+test('ModuleBuilder should not overwrite custom index file', done => {
   // mock the compiler with function that restores fs and calls done
   const compiler = {
     plugin: jest.fn((hook, callback) => {
       callback({}, () => { 
-        fs.readdir('components', (err, data) => {
+        fs.readFile('components/index.js', (err, data) => {
           if (err)
             return done()
 
-          expect(data.indexOf('index.js') > -1).toBe(true)
+          expect(data.toString()).toEqual(customIndex)
           mock.restore()
           done()
         })

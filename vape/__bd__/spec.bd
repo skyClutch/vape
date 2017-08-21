@@ -29,10 +29,10 @@ Vape is awesome
 
 ### backend
 
+- move PageBuilder into build process
 - finish auth
   - add auth endpoint
     - set cookie with token
-    - add middleware to copy token from cookie to auth header
   - add login/signup page
     - add verification/reset workflow
     - add verification step for admin

@@ -1,8 +1,22 @@
 {
-  "presets": [
-    ["env", { "modules": false }]
-  ],
-  "plugins": [
-    "syntax-dynamic-import"
-  ]
+  "env": {
+    "development": {
+      "plugins": [
+        "transform-es2015-modules-commonjs"
+      ]
+    },
+    "test": {
+      "plugins": [
+        "transform-es2015-modules-commonjs"
+      ]
+    },
+    "production": {
+      "presets": [
+        ["env", { "modules": false }]
+      ],
+      "plugins": [
+        "syntax-dynamic-import"
+      ]
+    }
+  }
 }
