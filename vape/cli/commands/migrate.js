@@ -23,11 +23,7 @@ module.exports = {
       let promise = Promise.resolve()
 
       if (target.drop !== undefined) {
-        promise = fwf.shell( 'psql', [
-          config.PSQL_ADMIN_URI, 
-          '-c', 
-          `drop table public.schema_info cascade; drop schema ${config.PSQL_SCHEMA} cascade; drop schema ${config.PSQL_SCHEMA}_private cascade;`
-        ])
+        promise = fwf.shell(`psql ${config.PSQL_ADMIN_URI} -c 'drop table public.schema_info cascade; drop schema ${config.PSQL_SCHEMA} cascade; drop schema ${config.PSQL_SCHEMA}_private cascade;'`)
       }
 
       return promise

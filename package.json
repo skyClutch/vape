@@ -10,7 +10,7 @@
     "build:client": "cross-env NODE_ENV=production webpack --config vape/build/webpack.client.config.js --progress --hide-modules",
     "build:server": "cross-env NODE_ENV=production webpack --config vape/build/webpack.server.config.js --progress --hide-modules",
     "test": "jest",
-    "vape": "node vape/cli/"
+    "vape": "touch config/server.js && touch config/client.js && node vape/cli/"
   },
   "engines": {
     "node": ">=7.0",

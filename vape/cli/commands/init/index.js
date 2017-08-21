@@ -13,6 +13,7 @@ module.exports = {
     .then(() => {
       return `
 Your config and default sql have been generated. Please run \`npm run vape migrate run\` to setup your db.
+If you need to overwrite a previous setup, run \`npm run vape migrate run -- --drop\`
 Once that runs, run \`npm run dev\` to startup your app.
     `})
   }
