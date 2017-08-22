@@ -1,9 +1,10 @@
-const path = require('path')
-const webpack = require('webpack')
-const MFS = require('memory-fs')
-const clientConfig = require('./webpack.client.config')
-const serverConfig = require('./webpack.server.config')
+const path          = require('path')
+const webpack       = require('webpack')
+const MFS           = require('memory-fs')
+const clientConfig  = require('./webpack.client.config')
+const serverConfig  = require('./webpack.server.config')
 const ModuleBuilder = require('./webpack-plugins/ModuleBuilder')
+const PageBuilder   = require('./webpack-plugins/PageBuilder')
 
 const readFile = (fs, file) => {
   try {
@@ -30,6 +31,7 @@ module.exports = function setupDevServer (app, cb) {
       './plugins',
       './templates',
     ] }),
+    new PageBuilder({ hook: 'watch-run' }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin()
   )

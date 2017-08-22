@@ -44,7 +44,7 @@ export default function (store) {
   .then(pages => {
     return pages.map(page => {
       let templateFile = Object.values(templateFiles).find(templateFile => templateFile.name === page.template)
-      let pageData = templateFile.data
+      let pageData = templateFile.data || (() => ({}))
 
       store.commit('SET_PAGE', { page })
 

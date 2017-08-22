@@ -102,14 +102,13 @@ function build(folder) {
         // hack that backdate files to block infinite watch/build loop
         let f    = path.resolve(`${folder}/index.js`)
         let now  = Date.now() / 1000
-        let then = now - 100000
+        let then = now - 100
         fs.utimes(f, then, then, function (err) { 
           if (err)
-            throw err 
+            throw rej(err)
+          // return success message
+          return res(`${folder}/index.js written`)
         })
-
-        // return success message
-        return res(`${folder}/index.js written`)
       })
     })
   })
