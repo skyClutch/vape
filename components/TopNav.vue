@@ -11,8 +11,8 @@
 				<b-collapse is-nav id="nav_collapse">
 
 					<b-nav is-nav-bar>
-            <router-link  v-for="page in topPages()" :key="page.id" :to="{ path: page.path, params: {} }">
-                {{page.title}}
+            <router-link  v-for="page in pages" :key="page.id" :to="{ path: page.route, params: {} }">
+                {{page.name}}
               </router-link>
 					</b-nav>
 
@@ -41,6 +41,13 @@
       }
     },
 
+    data() {
+      console.log(this.$store.state.pages)
+      return {
+        pages: this.$store.state.pages
+      }
+    },
+
     methods: {
       logout() {
         localStorage.removeItem('authToken')
@@ -50,10 +57,6 @@
       toggleEditable() {
         this.$set(this.$store.state, 'editing', !this.$store.state.editing)
       },
-
-      topPages() {
-        return Object.values(this.$store.state.pages).filter(p => !p.parentId)
-      }
     }
   }
 </script>
