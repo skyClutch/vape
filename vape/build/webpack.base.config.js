@@ -85,7 +85,8 @@ module.exports = {
           './layouts',
           './plugins',
           './templates',
-        ] })
+        ] }),
+        new PageBuilder({ hook: 'watch-run' })
       ]
     : [
         new FriendlyErrorsPlugin()

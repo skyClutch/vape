@@ -36,8 +36,20 @@ module.exports = function setupDevServer (app, cb) {
     new webpack.NoEmitOnErrorsPlugin()
   )
 
-  // dev middleware
+  // create the compiler
   const clientCompiler = webpack(clientConfig)
+
+  // fix times to block loop
+  const timefix = 11000;
+  clientCompiler.plugin('watch-run', (watching, callback) => {
+    watching.startTime += timefix;
+    callback()
+  });
+  clientCompiler.plugin('done', (stats) => {
+    stats.startTime -= timefix
+  })
+
+  // dev middleware
   const devMiddleware = require('webpack-dev-middleware')(clientCompiler, {
     publicPath: clientConfig.output.publicPath,
     noInfo: true
