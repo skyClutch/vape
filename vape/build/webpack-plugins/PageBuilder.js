@@ -6,6 +6,7 @@ const MFS            = require('memory-fs')
 const mfs            = new MFS()
 const rfs            = require('require-from-string')
 const templateConfig = require('../webpack.template.config.js')
+const isTest         = process.env.NODE_ENV === 'test'
 
 // drop compiled files into MFS
 const templateCompiler = webpack(templateConfig)
@@ -18,6 +19,7 @@ function PageBuilder ({ hook }) {
 PageBuilder.prototype.apply = function (compiler) {
   compiler.plugin(this.hook, (compilationParams, callback) => {
     return new Promise((resolve, reject) => {
+      // run webpack to compile templates
       templateCompiler.run((err, stats) => {
         let file = mfs.readFileSync(path.resolve(__dirname, '../../dist/templates.js'))
         let templates = rfs(file.toString())
@@ -41,6 +43,7 @@ PageBuilder.prototype.apply = function (compiler) {
           let values = []
 
           Object.values(templates.default).forEach(template => {
+            console.log(template)
             if (template.name && names.indexOf(template.name) === -1) {
               values.push(`('${template.route || '/' + template.name}', '${template.name}', '${template.name}', '{}')`)
               console.log(`Syncing template "${template.name}" with db...`);
@@ -63,7 +66,7 @@ PageBuilder.prototype.apply = function (compiler) {
           console.error(err)
           callback()
         })
-      }, false)
+      }, isTest) // add flag to keep it from rolling back
     })
   })
 }

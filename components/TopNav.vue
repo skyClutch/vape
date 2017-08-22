@@ -42,7 +42,6 @@
     },
 
     data() {
-      console.log(this.$store.state.pages)
       return {
         pages: this.$store.state.pages
       }

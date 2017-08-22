@@ -4,14 +4,12 @@
 */
 
 import About from './About.vue'
-import Blog from './Blog.vue'
 import Contact from './Contact.vue'
 import Home from './Home.vue'
 import Login from './Login.vue'
 
 export default {
   About,
-  Blog,
   Contact,
   Home,
   Login,
