@@ -6,8 +6,8 @@ module.exports = {
   description: '<dirPath> creates a vape project at the given dirPath',
 
   exec(target, dirPath = '') {
-    const parentDir = path.resolve((dirPath.split('/').slice(0, -1).join('/') || '.') + '/')
-    const dir       = path.resolve(dirPath.split('/').slice(-1)[0])
+    const parentDir = (dirPath.split('/').slice(0, -1).join('/') || '.') + '/'
+    const dir       = dirPath.split('/').slice(-1)[0]
 
     if (!dirPath)
       return Promise.reject('Please provide a dirPath for your project.')
@@ -42,10 +42,14 @@ module.exports = {
 
       // copy project files
       return fwf.shell(`
-mkdir ${dir}
+vape=$(pwd)/vape
+mkdir ${dirPath}
 cp -r ./. ${dirPath}
 cd ${dirPath}
 rm -rf .git
+rm *-fwf-cmd.sh
+rm -rf vape
+ln -s "$vape" "$(pwd)/vape"
       `)
     })
     .then(result => `Vape project created in ${dirPath}`)
