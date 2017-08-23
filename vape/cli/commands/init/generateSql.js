@@ -2,11 +2,12 @@ const fwf     = require('fun_with_flags')
 const fs      = require('fs')
 const sedFile = require('../../util/sedFile')
 const crypto  = require('crypto')
+const path = require('path')
 
 module.exports = function (props) {
   // make sure config reloads
-  delete require.cache[require.resolve('../../../../config/server')]
-  const config = require('../../../../config/server')
+  delete require.cache[path.resolve('./config/server')]
+  const config = require(path.resolve('./config/server'))
   const adminDefaultPassword = crypto.randomBytes(20).toString('hex')
 
   console.log(`

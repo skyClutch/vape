@@ -3,7 +3,8 @@ const fwf     = require('fun_with_flags')
 const pg      = require('pg')
 const migrate = require('pgmigrate')
 const pgConnectionString = require('pg-connection-string')
-const config = require('../../../config/server')
+const path = require('path')
+const config = require(path.resolve('./config/server'))
 
 module.exports = {
   add: {
@@ -20,6 +21,7 @@ module.exports = {
     description: 'runs migrations',
 
     exec: function (target, isSync) {
+
       let promise = Promise.resolve()
 
       if (target.drop !== undefined) {
