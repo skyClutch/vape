@@ -60,6 +60,7 @@ rm *-fwf-cmd.sh
 rm -rf vape
 ln -s "$vape" "$(pwd)/vape"
 mkdir schema
+echo vape >> .gitignore
       `)
     })
     .then(result => `
