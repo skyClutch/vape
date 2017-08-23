@@ -39,7 +39,16 @@ module.exports = {
     .then(props => {
       if (props.writeInto !== 'y')
         return process.exit()
-
+      return null
+    })
+    .then(() => {
+      console.log('Adding https://github.com/skyclutch/vape.git as upstream so you can stay up to date and contribute to the vape project more easily.') 
+      return fwf.shell(`
+git remote add upstream https://github.com/skyclutch/vape.git
+git fetch upstream
+      `)
+    })
+    .then(() => {
       // copy project files
       return fwf.shell(`
 vape=$(pwd)/vape
@@ -52,6 +61,18 @@ rm -rf vape
 ln -s "$vape" "$(pwd)/vape"
       `)
     })
-    .then(result => `Vape project created in ${dirPath}`)
+    .then(result => `
+Vape project created in ${dirPath}. 
+To init your project, run:
+
+$ cd ${dirPath} && npm install && npm run vape init
+
+You may need to run with sudo depending on your system\'s permisions
+If anyting goes wrong, you can just delete the folder created and try again with sudo.
+    `)
+    .catch(err => {
+      console.log('Something has gone wrong:')
+      console.error(err)
+    })
   }
 }
