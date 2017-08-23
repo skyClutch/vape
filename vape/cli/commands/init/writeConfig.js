@@ -59,7 +59,7 @@ You need a good name for your schema, as well as good usernames and passwords fo
     },
     {
       name: 'ADMIN_USERNAME',
-      message: 'Please enter the username for an superuser on your db',
+      message: 'Please enter the username for a superuser on your db',
       default: config.ADMIN_PASSWORD || 'postgres'
     },
     {

@@ -59,6 +59,7 @@ rm -rf .git
 rm *-fwf-cmd.sh
 rm -rf vape
 ln -s "$vape" "$(pwd)/vape"
+mkdir schema
       `)
     })
     .then(result => `

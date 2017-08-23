@@ -57,7 +57,7 @@ Now we need to generate your initial db schema. We will register you as an admin
   // copy and replace keys
   .then(({ files, props }) => {
     return Promise.all(files.map(file => {
-      return sedFile(props, './vape/default-schema/'+file, './schema/'+file)
+      return sedFile(props, './vape/default-schema/'+file, path.resolve('./schema/'+file))
     }))
   })
 }
