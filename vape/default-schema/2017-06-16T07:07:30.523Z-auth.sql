@@ -37,9 +37,6 @@ $$ language plpgsql strict security definer;
 comment on function %PSQL_SCHEMA%.register_person(text, text, text, text) is 'Registers a single person and creates an account in our forum.';
 
 -- create some roles
-drop role if exists %PSQL_SCHEMA%_postgraphql;
-create role %PSQL_SCHEMA%_postgraphql login password '%APP_PASSWORD%';
-
 drop role if exists %PSQL_SCHEMA%_anonymous;
 create role %PSQL_SCHEMA%_anonymous;
 grant %PSQL_SCHEMA%_anonymous to %PSQL_SCHEMA%_postgraphql;
