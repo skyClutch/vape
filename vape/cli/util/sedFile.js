@@ -18,6 +18,7 @@ module.exports = function (props, src, target, overwrite) {
 
       data = data.toString()
 
+
       for (let name in props) {
         let value = props[name]
         data = data.replace(new RegExp(`%${name}%`, 'gm'), value)

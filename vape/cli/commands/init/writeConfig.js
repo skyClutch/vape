@@ -53,7 +53,7 @@ You need a good name for your schema, as well as good usernames and passwords fo
       default: 'postgres'
     },
     {
-      name: 'SCHEMA',
+      name: 'PSQL_SCHEMA',
       message: 'Please enter a good name for your db schema',
       default: pgName
     },
@@ -69,7 +69,7 @@ You need a good name for your schema, as well as good usernames and passwords fo
       hidden: true
     },
     {
-      name: 'SECRET',
+      name: 'PSQL_SECRET',
       message: 'Enter an encryption key for your app if you wish, or hit enter to have one generated for you',
       hidden: true,
       default: crypto.randomBytes(20).toString('hex')

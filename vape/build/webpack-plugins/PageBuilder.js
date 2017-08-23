@@ -1,6 +1,6 @@
 const path           = require('path')
 const withPgClient   = require('../../util/postgres/withPgClient')
-const config         = require('../../../config/server')
+const config         = require(path.resolve('./config/server'))
 const webpack        = require('webpack')
 const MFS            = require('memory-fs')
 const mfs            = new MFS()

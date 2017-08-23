@@ -5,9 +5,6 @@ const crypto  = require('crypto')
 const path = require('path')
 
 module.exports = function (props) {
-  // make sure config reloads
-  delete require.cache[path.resolve('./config/server')]
-  const config = require(path.resolve('./config/server'))
   const adminDefaultPassword = crypto.randomBytes(20).toString('hex')
 
   console.log(`
@@ -38,7 +35,7 @@ Now we need to generate your initial db schema. We will register you as an admin
 
   // get default schema files
   .then(result => {
-    Object.assign(props, result, config)
+    Object.assign(props, result)
 
     // log out generated password if used
     if (props.ADMIN_PASSWORD === adminDefaultPassword)
@@ -57,7 +54,8 @@ Now we need to generate your initial db schema. We will register you as an admin
   // copy and replace keys
   .then(({ files, props }) => {
     return Promise.all(files.map(file => {
-      return sedFile(props, './vape/default-schema/'+file, path.resolve('./schema/'+file))
+      return sedFile(props, path.resolve('./vape/default-schema')+'/'+file, path.resolve('./schema/'+'/'+file))
     }))
   })
+  .catch(err => console.error(err))
 }
