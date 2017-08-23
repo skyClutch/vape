@@ -8,11 +8,9 @@ export function createRouter (store) {
   return getPages(store)
   .then(pageRoutes => {
     return new Router({
-      mode: 'history',
-      scrollBehavior: () => ({ y: 0 }),
-      routes: [
-        { path: '/', redirect: '/home' }
-      ].concat(pageRoutes)
+      mode           : 'history',
+      scrollBehavior : () => ({ y : 0 }),
+      routes         : pageRoutes
     })
   })
 }

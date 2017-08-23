@@ -48,7 +48,10 @@ createApp()
   }
 
   // set initial page
-  Vue.set(store.state, 'page', Object.values(store.state.pages).find(page => page.id === store.state.page.id))
+  Vue.set(store.state, 'page', Object.values(store.state.pages).find(page => {
+    let re = new RegExp(page.route)
+    return re.test(window.location.pathname)
+  }))
 
   // wait until router has resolved all async before hooks
   // and async components...

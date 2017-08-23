@@ -1,11 +1,10 @@
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const ExtractTextPlugin    = require('extract-text-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
-const ModuleBuilder = require('./webpack-plugins/ModuleBuilder')
-const path = require('path')
-const vueConfig = require('./vue-loader.config')
-const webpack = require('webpack')
-
-const isProd = process.env.NODE_ENV === 'production'
+const ModuleBuilder        = require('./webpack-plugins/ModuleBuilder')
+const path                 = require('path')
+const vueConfig            = require('./vue-loader.config')
+const webpack              = require('webpack')
+const isProd               = process.env.NODE_ENV === 'production'
 
 module.exports = {
   devtool: isProd
@@ -81,12 +80,10 @@ module.exports = {
         }),
         new ModuleBuilder({ folders: [
           './components',
-          './extensions',
           './layouts',
           './plugins',
           './templates',
-        ] }),
-        new PageBuilder({ hook: 'watch-run' })
+        ] })
       ]
     : [
         new FriendlyErrorsPlugin()

@@ -43,7 +43,6 @@ PageBuilder.prototype.apply = function (compiler) {
           let values = []
 
           Object.values(templates.default).forEach(template => {
-            console.log(template)
             if (template.name && names.indexOf(template.name) === -1) {
               values.push(`('${template.route || '/' + template.name}', '${template.name}', '${template.name}', '{}')`)
               console.log(`Syncing template "${template.name}" with db...`);

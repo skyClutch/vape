@@ -44,7 +44,14 @@ export default function (store) {
   .then(pages => {
     return pages.map(page => {
       let templateFile = Object.values(templateFiles).find(templateFile => templateFile.name === page.template)
-      let pageData = templateFile.data || (() => ({}))
+
+      // fail if we no longer have a template file for this page
+      if (!templateFile) {
+        console.error(`Template file (${page.template}) no longer exists for page: ${page.name}`)
+        return false
+      }
+
+      let pageData = templateFile.data || function () {}
 
       store.commit('SET_PAGE', { page })
 
@@ -60,5 +67,6 @@ export default function (store) {
         component : templateFile
       }
     })
+    .filter(page => { return !!page })
   })
 }
