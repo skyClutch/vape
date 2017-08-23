@@ -30,7 +30,7 @@ module.exports = {
 
       return promise
       .then(() => {
-        return fwf.shell(`psql ${config.PSQL_ADMIN_URI} -c 'create role if not exists ${config.PSQL_SCHEMA}_postgraphql login password \'${config.APP_PASSWORD}\';'`) 
+        return fwf.shell(`psql ${config.PSQL_ADMIN_URI} -c "drop role if exists ${config.PSQL_SCHEMA}_postgraphql; create role ${config.PSQL_SCHEMA}_postgraphql login password '${config.APP_PASSWORD}';"`) 
       })
       .then(function () {
         return fwf.shell('./node_modules/.bin/migrate', [], {
