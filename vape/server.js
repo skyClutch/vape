@@ -63,12 +63,22 @@ const serve = (path, cache) => express.static(resolve(path), {
   maxAge: cache && isProd ? 1000 * 60 * 60 * 24 * 30 : 0
 })
 
+app.get('/*', function(req, res, next) {
+  if (req.headers.host.match(/^www/) === null ) {
+    res.redirect(`http://www.${req.headers.host}${req.url}`)
+  } else {
+    next();     
+  }
+})
+
 app.use(compression({ threshold: 0 }))
 app.use(favicon('./public/favicon.png'))
 app.use('/dist', serve('./dist', true))
 app.use('/public', serve('../public', true))
 app.use('/manifest.json', serve('../manifest.json', true))
 app.use('/service-worker.js', serve('./dist/service-worker.js'))
+app.use('/robots.txt', serve('./public/robots.txt'))
+app.use('/sitemap.txt', serve('./public/sitemap.txt'))
 
 // 1-second microcache.
 // https://www.nginx.com/blog/benefits-of-microcaching-nginx/
