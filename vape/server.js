@@ -64,10 +64,20 @@ const serve = (path, cache) => express.static(resolve(path), {
 })
 
 app.get('/*', function(req, res, next) {
-  if (req.headers.host.match(/^www/) === null ) {
-    res.redirect(`http://www.${req.headers.host}${req.url}`)
+  let host = req.headers.host
+
+  if (host.match(/\.com$/) !== null) {
+    host = `${host.replace(/\.com$/, '.org')}`
+  }
+
+  if (host.match(/^www/) === null) {
+    host = `www.${host}`
+  } 
+
+  if (host !== req.headers.host) {
+    res.redirect(`http://${host}${req.url}`)
   } else {
-    next();     
+    next()     
   }
 })
 
@@ -77,8 +87,8 @@ app.use('/dist', serve('./dist', true))
 app.use('/public', serve('../public', true))
 app.use('/manifest.json', serve('../manifest.json', true))
 app.use('/service-worker.js', serve('./dist/service-worker.js'))
-app.use('/robots.txt', serve('./public/robots.txt'))
-app.use('/sitemap.txt', serve('./public/sitemap.txt'))
+app.use('/robots.txt', serve('../public/robots.txt'))
+app.use('/sitemap.txt', serve('../public/sitemap.txt'))
 
 // 1-second microcache.
 // https://www.nginx.com/blog/benefits-of-microcaching-nginx/
