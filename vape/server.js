@@ -70,9 +70,9 @@ app.get('/*', function(req, res, next) {
     host = `${host.replace(/\.com$/, '.org')}`
   }
 
-  if (host.match(/^www/) === null) {
-    host = `www.${host}`
-  } 
+  // if (host.match(/^www/) === null) {
+  //   host = `www.${host}`
+  // } 
 
   if (host !== req.headers.host) {
     res.redirect(`http://${host}${req.url}`)

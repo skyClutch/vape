@@ -17,9 +17,9 @@
 					</b-nav>
 
 				</b-collapse>
-        <!-- <b-link href="https://twitter.com" target="_blank" right> -->
-        <!--   <img src="/public/social-twitter.png" class="social-icon"/> -->
-        <!-- </b-link> -->
+        <b-link href="https://www.facebook.com/14thDistrictPTA/" target="_blank" right>
+           <img src="/public/social-facebook.png" class="social-icon"/> 
+         </b-link> 
         <b-button v-if="!!currentUser" @click="logout">logout</b-button>
         <b-button v-if="!!currentUser && !editing" @click="toggleEditable" variant="danger">edit</b-button>
         <b-button v-if="!!currentUser && editing" @click="toggleEditable" variant="success">stop edit</b-button>
