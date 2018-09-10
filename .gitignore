@@ -9,3 +9,4 @@ yarn-error.log
 *.swo
 vape.sql
 vape.pem
+config/

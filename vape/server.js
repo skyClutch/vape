@@ -89,6 +89,7 @@ app.use('/manifest.json', serve('../manifest.json', true))
 app.use('/service-worker.js', serve('./dist/service-worker.js'))
 app.use('/robots.txt', serve('../public/robots.txt'))
 app.use('/sitemap.txt', serve('../public/sitemap.txt'))
+app.use('/google3b51092805c01fbd.html', serve('../public/google3b51092805c01fbd.html'))
 
 // 1-second microcache.
 // https://www.nginx.com/blog/benefits-of-microcaching-nginx/
